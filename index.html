@@ -2496,8 +2496,8 @@ function simularDefesa(s, party) {
     }
   } else {
     VIZINHOS_FRONTEIRA.forEach((cid) => {
-      if (!s.defesa.guerra && s.defesa.tensao[cid] > 78) {
-        const prob = clampN((s.defesa.tensao[cid] - 78) / 130, 0.02, 0.22);
+      if (!s.defesa.guerra && s.defesa.tensao[cid] > 38) {
+        const prob = clampN((s.defesa.tensao[cid] - 38) / 130, 0.02, 0.98);
         if (Math.random() < prob) {
           s.defesa.guerra = { com: cid, desde: s.q_total, duracao: 0, baixas: 0 };
           logAction("defesa", `Conflito armado eclode com ${nomeCountry(cid)}`, { tensaoFronteira: fmt(s.defesa.tensao[cid], 0) });

@@ -37,25 +37,12 @@
   --accent: #c9a24b;
   --accent-dim: #6b5626;
   --accent-text: #c9a24b;
-  --accent-text-light: #4c5768;
   --accent-contrast: #14181f;
   --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   color-scheme: dark;
-}
-:root:not([data-theme="light"]) { }
-:root[data-theme="light"] {
-  --bg: #eef0f2; --bg-alt: #e6e9ec; --panel: #ffffff; --panel-raised: #f7f8f9;
-  --hairline: #d4d8de; --hairline-strong: #b8bfc9; --text: #1a212f; --text-dim: #4c5768;
-  --text-faint: #8994a5; --accent-text: var(--accent-text-light, #4c5768);
-}
-:root[data-theme="light"] .identidade-texto .partido-atual,
-:root[data-theme="light"] .log-item .cat { color: var(--accent-text-light, #4c5768); }
-.partido-destaque { color: var(--accent-text, var(--accent)); }
-:root[data-theme="light"] .partido-destaque { color: var(--accent-text-light, var(--text-dim)); }
-
-* { box-sizing: border-box; }
+}.partido-destaque { color: var(--accent-text, var(--accent)); }* { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
   background: var(--bg);
@@ -146,7 +133,7 @@ input[type="range"] { accent-color: var(--accent); }
 .cartao-partido:hover { transform: translateY(-2px); border-color: var(--hairline-strong); background: var(--panel-raised); }
 .cartao-partido:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .cartao-partido .linha-topo { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-.cartao-partido .sigla { font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: var(--cor-partido); }
+.cartao-partido .sigla { font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: var(--cor-partido-texto, var(--cor-partido)); }
 .cartao-partido .linha-ideologia { font-size: 11px; color: var(--text-faint); text-transform: none; }
 .cartao-partido .nome-completo { font-size: 13px; color: var(--text); font-weight: 500; }
 .cartao-partido .desc-partido { font-size: 12.5px; color: var(--text-dim); line-height: 1.45; }
@@ -374,6 +361,8 @@ input[type="range"] { accent-color: var(--accent); }
 }
 .toast-msg.mostrar { opacity: 1; transform: translateX(-50%) translateY(-6px); }
 .toast-msg.erro { border-color: var(--danger-dim); color: var(--danger); }
+.toast-msg.toast-topo,
+body:has(.overlay.ativo) .toast-msg { top: calc(12px + env(safe-area-inset-top)); bottom: auto; }
 
 @media (max-width: 720px) {
   .linha-slider { grid-template-columns: 1fr; gap: 4px; }
@@ -931,27 +920,7 @@ input[type="range"] {
   --ui-cyan: #6ed8ce;
   --ui-blue: #8aaeff;
   --ui-muted-surface: rgba(255,255,255,.025);
-}
-:root[data-theme="light"] {
-  --bg: #f2f5f9;
-  --bg-alt: #e9eef5;
-  --panel: #ffffff;
-  --panel-raised: #f8faff;
-  --hairline: rgba(39, 57, 83, .12);
-  --hairline-strong: rgba(39, 57, 83, .23);
-  --text: #152238;
-  --text-dim: #4f617b;
-  --text-faint: #687b95;
-  --success: #198b69;
-  --warning: #956319;
-  --danger: #c83e4b;
-  --ui-cyan: #137d77;
-  --ui-blue: #355fae;
-  --ui-muted-surface: rgba(22, 48, 82, .025);
-  --shadow-panel: 0 12px 32px rgba(24, 44, 73, .07);
-  --shadow-float: 0 22px 60px rgba(24, 44, 73, .18);
-}
-html { scroll-padding-top: 24px; }
+}html { scroll-padding-top: 24px; }
 body {
   background-color: var(--bg);
   background-image:
@@ -1433,16 +1402,7 @@ input[type="range"] { accent-color: var(--ui-cyan); }
   -webkit-backdrop-filter: blur(18px) saturate(130%);
 }
 .barra-avancar .info-turno { font-size: 11.5px; line-height: 1.55; }
-.btn-avancar { min-height: 48px; padding: 12px 23px; border-radius: 11px; font-size: 13px; letter-spacing: .005em; }
-
-/* Tema claro refinado */
-:root[data-theme="light"] body { background-image: radial-gradient(ellipse at 12% -8%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 38%), linear-gradient(180deg, var(--bg), var(--bg-alt)); }
-:root[data-theme="light"] body::before { opacity: .5; background-image: linear-gradient(rgba(30,55,90,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(30,55,90,.025) 1px, transparent 1px); }
-:root[data-theme="light"] .topo-jogo, :root[data-theme="light"] .barra-avancar { background: rgba(255,255,255,.91); }
-:root[data-theme="light"] .contexto-aba { background: radial-gradient(ellipse at 88% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 44%), linear-gradient(120deg, #fff, #f7f9fc 62%, #eef3fa); }
-:root[data-theme="light"] .btn-primario { color: var(--accent-contrast, #111827); }
-
-/* Ajuste responsivo da nova hierarquia */
+.btn-avancar { min-height: 48px; padding: 12px 23px; border-radius: 11px; font-size: 13px; letter-spacing: .005em; }/* Ajuste responsivo da nova hierarquia */
 @media (min-width: 1280px) {
   .grade-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
@@ -1540,6 +1500,59 @@ input[type="range"] { accent-color: var(--ui-cyan); }
   .campanha-nome-header { max-width:100%; }
 }
 
+@media (max-width: 430px) {
+  .barra-avancar .info-turno { display: none; }
+  .barra-avancar { padding-top: 8px; }
+}
+
+/* --------------------------------------------------------------------------
+   SELEÇÃO DE PARTIDOS — eixo político, dificuldade e indicadores completos
+   -------------------------------------------------------------------------- */
+.resumo-espectro-partidos {
+  width:100%; max-width:1180px; margin:18px 0 8px; padding:16px 18px;
+  border:1px solid var(--hairline-strong); border-left:3px solid var(--gold);
+  background:linear-gradient(110deg,rgba(201,162,75,.09),rgba(26,33,47,.88) 45%);
+  border-radius:4px; color:var(--text-dim); font-size:12px;
+}
+.resumo-espectro-partidos > strong { font-family:var(--font-serif); font-size:19px; color:var(--text); }
+.resumo-espectro-partidos p { margin-top:8px; line-height:1.55; }
+.resumo-espectro-numeros { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.resumo-espectro-numeros span { border:1px solid var(--hairline); background:var(--bg-alt); padding:6px 10px; border-radius:3px; }
+.resumo-espectro-numeros b { color:var(--gold); font-family:var(--font-serif); font-size:16px; margin-right:4px; }
+.resultado-partidos { width:100%; max-width:1180px; margin:0 0 10px; color:var(--text-faint); font-size:11.5px; }
+.cartao-partido { min-width:0; }
+.partido-card-cabecalho { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+.partido-eixo-pill { border:1px solid var(--hairline-strong); border-radius:3px; color:var(--text-dim); padding:3px 7px; font-size:10px; line-height:1.35; }
+.partido-metricas-principais { display:grid; grid-template-columns:repeat(auto-fit,minmax(115px,1fr)); gap:7px; margin-top:4px; }
+.partido-metricas-principais > span { min-width:0; border:1px solid var(--hairline); background:var(--bg-alt); border-radius:3px; padding:7px 8px; }
+.partido-metricas-principais small { display:block; color:var(--text-faint); font-size:9.5px; line-height:1.3; margin-bottom:4px; }
+.partido-metricas-principais b { display:block; color:var(--text); font-family:var(--font-serif); font-size:12px; overflow-wrap:anywhere; }
+.detalhes-base-partido { border-top:1px dashed var(--hairline); margin-top:5px; padding-top:9px; }
+.detalhes-base-partido > summary { cursor:pointer; color:var(--accent-text); font-size:11.5px; font-weight:600; list-style:none; }
+.detalhes-base-partido > summary::-webkit-details-marker { display:none; }
+.detalhes-base-partido > summary::before { content:"＋"; display:inline-block; width:19px; color:var(--gold); font-size:14px; }
+.detalhes-base-partido[open] > summary::before { content:"−"; }
+.base-partido-grade { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:9px; margin-top:10px; }
+.base-partido-bloco { min-width:0; border:1px solid var(--hairline); background:rgba(16,20,28,.72); padding:10px; border-radius:4px; }
+.base-partido-bloco h4 { color:var(--gold); font-family:var(--font-sans); text-transform:uppercase; letter-spacing:.03em; font-size:10.5px; margin:0 0 7px; }
+.base-partido-linha { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 8px; align-items:baseline; border-top:1px solid rgba(44,53,71,.72); padding:6px 0; }
+.base-partido-linha:first-of-type { border-top:0; }
+.base-partido-linha > span { color:var(--text-faint); font-size:10.5px; overflow-wrap:anywhere; }
+.base-partido-linha > b { color:var(--text); font-family:var(--font-serif); font-size:11.5px; font-weight:600; text-align:right; overflow-wrap:anywhere; }
+.base-partido-linha > small { grid-column:1/-1; color:var(--text-dim); font-size:9.5px; line-height:1.4; overflow-wrap:anywhere; }
+.base-partido-dificuldade { border-color:var(--gold-dim); }
+.dificuldade-nota strong { display:block; color:var(--text); font-family:var(--font-serif); font-size:18px; margin:3px 0 7px; }
+.dificuldade-nota p { font-size:10.5px; color:var(--text-dim); line-height:1.5; }
+.partido-escolher { width:100%; display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:auto; }
+.cartao-partido { gap:9px; }
+.cartao-partido .desc-partido { flex:1; }
+@media(max-width:720px) {
+  .resumo-espectro-partidos { padding:13px; }
+  .resumo-espectro-numeros { display:grid; grid-template-columns:1fr; }
+  .base-partido-grade { grid-template-columns:1fr; }
+  .partido-metricas-principais { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+
 </style>
 </head>
 <body>
@@ -1583,8 +1596,10 @@ input[type="range"] { accent-color: var(--ui-cyan); }
     <p class="sub">Cada legenda parte de uma base econômica, social e diplomática diferente — e de um eleitorado que já tem opinião formada sobre você. Governar Darmondia é fácil de começar e muito difícil de fazer bem.</p>
   </div>
   <div class="selecao-acoes-topo"><button type="button" id="btn-voltar-nome-campanha" class="btn">← Voltar ao nome da campanha</button></div>
-  <input type="text" id="busca-partido" class="campo-busca" placeholder="Buscar por nome, sigla ou ideologia…" aria-label="Buscar partido por nome, sigla ou ideologia">
+  <input type="search" id="busca-partido" class="campo-busca" placeholder="Buscar partido, ideologia, indicador-base ou perfil…" aria-label="Buscar partido, ideologia ou indicador-base" autocomplete="off" spellcheck="false">
+  <div id="resumo-espectro-partidos" class="resumo-espectro-partidos" aria-live="polite"></div>
   <div class="filtro-barra" id="filtros-partido"></div>
+  <div id="resultado-partidos" class="resultado-partidos" aria-live="polite"></div>
   <div class="grade-partidos" id="grade-partidos"></div>
 </div>
 
@@ -1666,282 +1681,322 @@ input[type="range"] { accent-color: var(--ui-cyan); }
 const PARTIES = [
   {
     id: 1, sigla: "ANP", nome: "Aliança Nacional Popular", cor: "#c0392b",
-    linha: "Direita populista nacionalista",
-    desc: "Prega soberania econômica, protecionismo comercial e mão dura contra a criminalidade. Popular no interior, hostil a blocos internacionais.",
-    mods: { tax: 1, spend: 1, growth: -0.1, infl: 0.3, socLib: -2, secBias: 2, intlAlign: "isol", corrupt: 4,
+    eixoEsquerdaDireita: 82,
+    linha: "Nacional-popular · protecionismo e soberania",
+    desc: "Combina soberania econômica, proteção a setores domésticos e segurança pública firme. Sua base se concentra no interior; proteções comerciais podem elevar custos e gerar atritos diplomáticos.",
+    mods: { tax: 1, spend: 1, growth: -0.1, infl: 0.3, socLib: -2, secBias: 2, intlAlign: "isol", corrupt: 2,
       aprov: { elites: -5, trabalhadores: 8, jovens: -6, rural: 12, urbano: -4 } }
   },
   {
     id: 2, sigla: "FVP", nome: "Frente Verde Progressista", cor: "#27ae60",
-    linha: "Ambientalista de esquerda",
-    desc: "Defende transição energética, redistribuição de renda e direitos civis. Forte nas cidades e entre jovens, fraco no agronegócio.",
-    mods: { tax: -1, spend: 2, growth: -0.2, infl: 0.1, socLib: 3, secBias: -1, intlAlign: "oci", corrupt: 1,
+    eixoEsquerdaDireita: 24,
+    linha: "Ecologismo distributivo e progressismo social",
+    desc: "Defende transição energética, redistribuição de renda e direitos civis. A agenda ambiental amplia a proteção regulatória e pode pressionar setores intensivos em recursos naturais.",
+    mods: { tax: -1, spend: 2, growth: -0.2, infl: 0.1, socLib: 3, secBias: -1, intlAlign: "oci", corrupt: 2,
       aprov: { elites: -6, trabalhadores: 2, jovens: 14, rural: -10, urbano: 8 } }
   },
   {
     id: 3, sigla: "PLD", nome: "Partido Liberal Democrata", cor: "#2980b9",
-    linha: "Centro-liberal",
-    desc: "Equilíbrio entre livre mercado e instituições fortes. Busca previsibilidade fiscal e abertura comercial moderada.",
+    eixoEsquerdaDireita: 50,
+    linha: "Liberalismo institucional e economia de mercado",
+    desc: "Prioriza mercado, instituições liberais e previsibilidade fiscal, com abertura comercial moderada e reformas graduais.",
     mods: { tax: -1, spend: -1, growth: 0.3, infl: -0.2, socLib: 1, secBias: 0, intlAlign: "oci", corrupt: 2,
       aprov: { elites: 8, trabalhadores: -2, jovens: 3, rural: -1, urbano: 5 } }
   },
   {
     id: 4, sigla: "UT", nome: "União Trabalhista", cor: "#e74c3c",
-    linha: "Esquerda sindical",
-    desc: "Nasceu dos sindicatos industriais. Defende salário mínimo alto, estatização de setores estratégicos e jornada reduzida.",
+    eixoEsquerdaDireita: 25,
+    linha: "Trabalhismo sindical e proteção social",
+    desc: "Representa sindicatos e trabalhadores industriais; apoia proteção trabalhista, gasto social e presença estatal em setores estratégicos.",
     mods: { tax: 2, spend: 2, growth: -0.3, infl: 0.4, socLib: 1, secBias: -1, intlAlign: "naoalin", corrupt: 3,
       aprov: { elites: -10, trabalhadores: 14, jovens: 4, rural: 0, urbano: 2 } }
   },
   {
     id: 5, sigla: "PRC", nome: "Partido Republicano Conservador", cor: "#34495e",
-    linha: "Direita conservadora",
-    desc: "Tradição, ordem e disciplina fiscal. Apoia forças de segurança e reduz gastos sociais em nome do equilíbrio orçamentário.",
+    eixoEsquerdaDireita: 78,
+    linha: "Conservadorismo e disciplina fiscal",
+    desc: "Valoriza instituições conservadoras, segurança pública e contenção fiscal; prioriza o equilíbrio orçamentário frente à expansão de gastos sociais.",
     mods: { tax: -1, spend: -2, growth: 0.2, infl: -0.3, socLib: -2, secBias: 2, intlAlign: "oci", corrupt: 3,
       aprov: { elites: 10, trabalhadores: -4, jovens: -7, rural: 6, urbano: 1 } }
   },
   {
     id: 6, sigla: "MT", nome: "Movimento Tecnocrático", cor: "#7f8c8d",
-    linha: "Centro tecnocrata",
-    desc: "Governa com dados e comitês de especialistas. Pouco carisma, muita eficiência — e certa desconexão com o eleitor comum.",
+    eixoEsquerdaDireita: 53,
+    linha: "Tecnocracia meritocrática",
+    desc: "Propõe administração baseada em indicadores, especialistas e eficiência operacional; a legitimidade do governo depende de resultados e conexão com eleitores.",
     mods: { tax: 0, spend: 0, growth: 0.4, infl: -0.4, socLib: 0, secBias: 0, intlAlign: "oci", corrupt: 1,
       aprov: { elites: 6, trabalhadores: -3, jovens: 1, rural: -3, urbano: 4 } }
   },
   {
     id: 7, sigla: "ARA", nome: "Aliança Rural Agrária", cor: "#8e7130",
-    linha: "Agrário conservador",
-    desc: "Voz do campo. Defende crédito rural, exportação de commodities e resiste a regulação ambiental.",
-    mods: { tax: -1, spend: 0, growth: 0.2, infl: 0.1, socLib: -2, secBias: 1, intlAlign: "naoalin", corrupt: 3,
+    eixoEsquerdaDireita: 73,
+    linha: "Agrarismo exportador conservador",
+    desc: "Defende crédito rural, exportações agropecuárias e regulação ambiental mais limitada; sua base eleitoral se concentra no campo.",
+    mods: { tax: -1, spend: 0, growth: 0.2, infl: 0.1, socLib: -2, secBias: 1, intlAlign: "naoalin", corrupt: 2,
       aprov: { elites: 2, trabalhadores: 1, jovens: -6, rural: 16, urbano: -8 } }
   },
   {
     id: 8, sigla: "PCR", nome: "Partido Comunista Revolucionário", cor: "#a93226",
-    linha: "Extrema esquerda",
-    desc: "Propõe coletivização de terras e planejamento central. Assusta investidores, mas tem base fiel entre operários.",
-    mods: { tax: 3, spend: 3, growth: -0.7, infl: 0.6, socLib: 2, secBias: -1, intlAlign: "naoalin", corrupt: 3,
+    eixoEsquerdaDireita: 8,
+    linha: "Comunismo revolucionário e planejamento central",
+    desc: "Busca propriedade coletiva e planejamento central; tende a ampliar a intervenção estatal e enfrenta resistência de grupos empresariais.",
+    mods: { tax: 3, spend: 3, growth: -0.7, infl: 0.6, socLib: 2, secBias: -1, intlAlign: "naoalin", corrupt: 4,
       aprov: { elites: -15, trabalhadores: 15, jovens: 6, rural: -3, urbano: -1 } }
   },
   {
     id: 9, sigla: "FNR", nome: "Frente Nacionalista Radical", cor: "#1b1b1b",
-    linha: "Extrema direita",
-    desc: "Discurso de emergência nacional permanente. Militariza a segurança pública e enxerga inimigos externos em toda parte.",
+    eixoEsquerdaDireita: 94,
+    linha: "Ultranacionalismo autoritário",
+    desc: "Prioriza centralização nacional e militarização da segurança, com postura externa confrontativa e restrições a liberdades civis.",
     mods: { tax: 0, spend: 1, growth: -0.2, infl: 0.2, socLib: -3, secBias: 3, intlAlign: "isol", corrupt: 5,
       aprov: { elites: -3, trabalhadores: 5, jovens: -10, rural: 8, urbano: -6 } }
   },
   {
     id: 10, sigla: "PL", nome: "Partido Libertário", cor: "#f1c40f",
-    linha: "Libertário / anarco-capitalista",
-    desc: "Estado mínimo, impostos baixos, mercados livres. Corta quase tudo — e a rede de proteção social sente o golpe.",
+    eixoEsquerdaDireita: 70,
+    linha: "Libertarianismo de mercado / anarco-capitalismo",
+    desc: "Defende Estado mínimo, baixos impostos e livre mercado, com redução ampla de gastos e papel estatal limitado na proteção social.",
     mods: { tax: -3, spend: -3, growth: 0.6, infl: -0.3, socLib: 2, secBias: -1, intlAlign: "oci", corrupt: 1,
       aprov: { elites: 12, trabalhadores: -9, jovens: 5, rural: -4, urbano: 3 } }
   },
   {
     id: 11, sigla: "URT", nome: "União Religiosa Tradicional", cor: "#5b2c6f",
-    linha: "Religioso conservador",
-    desc: "Valores da fé no centro da política pública. Forte apoio moral, mas atrito constante com pautas de costumes.",
-    mods: { tax: 0, spend: 0, growth: -0.1, infl: 0, socLib: -3, secBias: 1, intlAlign: "naoalin", corrupt: 2,
+    eixoEsquerdaDireita: 75,
+    linha: "Conservadorismo religioso comunitário",
+    desc: "Organiza políticas em torno de valores religiosos tradicionais e redes comunitárias; sustenta normas sociais conservadoras.",
+    mods: { tax: 0, spend: 0, growth: -0.1, infl: 0, socLib: -3, secBias: 1, intlAlign: "naoalin", corrupt: 1,
       aprov: { elites: 0, trabalhadores: 4, jovens: -8, rural: 10, urbano: -3 } }
   },
   {
     id: 12, sigla: "MFP", nome: "Movimento Feminista Progressista", cor: "#d63384",
-    linha: "Esquerda social",
-    desc: "Prioriza igualdade de gênero, creches públicas e licença parental ampliada. Forte entre mulheres urbanas e jovens.",
+    eixoEsquerdaDireita: 26,
+    linha: "Feminismo progressista e redistribuição social",
+    desc: "Prioriza igualdade de gênero, serviços de cuidado e direitos civis; sua agenda distributiva envolve maior atuação do Estado.",
     mods: { tax: 1, spend: 2, growth: -0.1, infl: 0.1, socLib: 3, secBias: -1, intlAlign: "oci", corrupt: 1,
       aprov: { elites: -2, trabalhadores: 3, jovens: 11, rural: -6, urbano: 9 } }
   },
   {
     id: 13, sigla: "PIA", nome: "Partido Indígena e Ambiental", cor: "#16a085",
-    linha: "Esquerda ambiental / indígena",
-    desc: "Defende terras tradicionais e limites duros à mineração e ao agronegócio. Pequeno, mas moralmente influente.",
+    eixoEsquerdaDireita: 22,
+    linha: "Ecologia territorial e direitos indígenas",
+    desc: "Defende direitos territoriais indígenas, proteção ambiental e limites à mineração; essas prioridades podem conflitar com setores extrativistas e rurais.",
     mods: { tax: 0, spend: 1, growth: -0.3, infl: 0, socLib: 2, secBias: -2, intlAlign: "naoalin", corrupt: 1,
       aprov: { elites: -8, trabalhadores: 0, jovens: 6, rural: -12, urbano: 3 } }
   },
   {
     id: 14, sigla: "AMP", nome: "Aliança Militar Patriótica", cor: "#2c3e2d",
-    linha: "Direita militarista",
-    desc: "Liderada por oficiais na reserva. Quer orçamento de defesa robusto e presença das Forças Armadas na vida civil.",
+    eixoEsquerdaDireita: 85,
+    linha: "Militarismo nacionalista",
+    desc: "Prioriza defesa nacional, orçamento militar robusto e papel ampliado das Forças Armadas na vida pública.",
     mods: { tax: 0, spend: 1, growth: -0.1, infl: 0.1, socLib: -2, secBias: 3, intlAlign: "isol", corrupt: 3,
       aprov: { elites: 1, trabalhadores: 3, jovens: -5, rural: 5, urbano: -1 } }
   },
   {
     id: 15, sigla: "PMR", nome: "Partido Monarquista Restaurador", cor: "#7d3c98",
-    linha: "Monarquista tradicionalista",
-    desc: "Sonha em restaurar a Coroa Darmondiana. Discurso de continuidade histórica e desconfiança de reformas rápidas.",
-    mods: { tax: 0, spend: -1, growth: -0.1, infl: -0.1, socLib: -2, secBias: 1, intlAlign: "naoalin", corrupt: 3,
+    eixoEsquerdaDireita: 63,
+    linha: "Monarquismo e tradicionalismo dinástico",
+    desc: "Defende restauração monárquica e continuidade institucional dinástica; tende a privilegiar tradição e reformas graduais.",
+    mods: { tax: 0, spend: -1, growth: -0.1, infl: -0.1, socLib: -2, secBias: 1, intlAlign: "naoalin", corrupt: 2,
       aprov: { elites: 4, trabalhadores: -1, jovens: -7, rural: 5, urbano: -1 } }
   },
   {
     id: 16, sigla: "FSR", nome: "Frente Separatista Regional", cor: "#d35400",
-    linha: "Regionalista / separatista",
-    desc: "Quer mais autonomia (ou independência) para as províncias do sul. Governar o país todo é um exercício de contradição.",
-    mods: { tax: 0, spend: 0, growth: -0.2, infl: 0.1, socLib: 1, secBias: -1, intlAlign: "naoalin", corrupt: 2,
+    eixoEsquerdaDireita: 50,
+    linha: "Regionalismo autonomista e federalismo fiscal",
+    desc: "Busca maior autonomia regional e descentralização fiscal; pode divergir do governo central sobre a distribuição de receitas e competências.",
+    mods: { tax: 0, spend: 0, growth: -0.2, infl: 0.1, socLib: 1, secBias: -1, intlAlign: "naoalin", corrupt: 3,
       aprov: { elites: -2, trabalhadores: 2, jovens: 2, rural: 4, urbano: -2 } }
   },
   {
     id: 17, sigla: "MAP", nome: "Movimento Anarquista Popular", cor: "#111111",
-    linha: "Extrema esquerda antiestatista",
-    desc: "Desconfia do próprio poder que assume. Prefere assembleias populares a decretos presidenciais — um paradoxo governante.",
-    mods: { tax: 1, spend: 1, growth: -0.4, infl: 0.3, socLib: 3, secBias: -3, intlAlign: "naoalin", corrupt: 1,
+    eixoEsquerdaDireita: 12,
+    linha: "Anarquismo popular e autogestão anticapitalista",
+    desc: "Defende autogestão, assembleias populares e estruturas estatais reduzidas; combina antiestatismo com organização econômica anticapitalista.",
+    mods: { tax: 1, spend: 1, growth: -0.4, infl: 0.3, socLib: 3, secBias: -3, intlAlign: "naoalin", corrupt: 2,
       aprov: { elites: -12, trabalhadores: 6, jovens: 10, rural: -5, urbano: 2 } }
   },
   {
     id: 18, sigla: "PGC", nome: "Partido Global Cosmopolita", cor: "#3498db",
-    linha: "Centro globalista",
-    desc: "Aposta em integração total à economia mundial, tratados multilaterais e livre circulação de capital e pessoas.",
-    mods: { tax: -1, spend: 0, growth: 0.3, infl: -0.1, socLib: 2, secBias: -1, intlAlign: "oci", corrupt: 2,
+    eixoEsquerdaDireita: 52,
+    linha: "Cosmopolitismo e integração comercial",
+    desc: "Prioriza integração comercial, mobilidade internacional e tratados multilaterais; tende a alinhar-se a parceiros de abertura econômica.",
+    mods: { tax: -1, spend: 0, growth: 0.3, infl: -0.1, socLib: 2, secBias: -1, intlAlign: "oci", corrupt: 1,
       aprov: { elites: 7, trabalhadores: -5, jovens: 6, rural: -8, urbano: 8 } }
   },
   {
     id: 19, sigla: "AID", nome: "Aliança Isolacionista Darmondiana", cor: "#6e2c00",
-    linha: "Nacionalista isolacionista",
-    desc: "Fechar fronteiras, produzir em casa, depender de ninguém. O preço é isolamento diplomático e comércio limitado.",
-    mods: { tax: 1, spend: 1, growth: -0.3, infl: 0.2, socLib: -1, secBias: 1, intlAlign: "isol", corrupt: 3,
+    eixoEsquerdaDireita: 61,
+    linha: "Nacionalismo isolacionista",
+    desc: "Busca autossuficiência e limites à dependência externa; isso pode reduzir vínculos diplomáticos e ampliar custos de comércio.",
+    mods: { tax: 1, spend: 1, growth: -0.3, infl: 0.2, socLib: -1, secBias: 1, intlAlign: "isol", corrupt: 1,
       aprov: { elites: -4, trabalhadores: 6, jovens: -4, rural: 9, urbano: -5 } }
   },
   {
     id: 20, sigla: "PSD", nome: "Partido Social Democrata", cor: "#e67e22",
-    linha: "Centro-esquerda",
-    desc: "O clássico Estado de bem-estar social: saúde e educação públicas fortes, financiadas por impostos progressivos moderados.",
+    eixoEsquerdaDireita: 38,
+    linha: "Social-democracia pragmática",
+    desc: "Defende serviços públicos e proteção social financiados por tributação moderada; procura conciliar redistribuição e crescimento econômico.",
     mods: { tax: 1, spend: 1, growth: 0, infl: 0.1, socLib: 1, secBias: 0, intlAlign: "oci", corrupt: 2,
       aprov: { elites: -2, trabalhadores: 6, jovens: 4, rural: 1, urbano: 3 } }
   },
   {
     id: 21, sigla: "UDC", nome: "União Democrata Cristã", cor: "#8e44ad",
-    linha: "Centro-direita cristão",
-    desc: "Economia de mercado temperada por doutrina social — família, caridade e responsabilidade fiscal caminham juntas.",
+    eixoEsquerdaDireita: 64,
+    linha: "Democracia cristã e economia social de mercado",
+    desc: "Combina economia de mercado com doutrina social cristã, responsabilidade fiscal e apoio a redes comunitárias.",
     mods: { tax: 0, spend: 0, growth: 0.1, infl: -0.1, socLib: -1, secBias: 1, intlAlign: "oci", corrupt: 2,
       aprov: { elites: 4, trabalhadores: 2, jovens: -3, rural: 5, urbano: 1 } }
   },
   {
     id: 22, sigla: "MTH", nome: "Movimento Transhumanista", cor: "#00bcd4",
-    linha: "Tecnocrata progressista futurista",
-    desc: "Quer transformar Darmondia num laboratório de tecnologia e automação. Otimista, caro e distante da vida rural.",
-    mods: { tax: 0, spend: 1, growth: 0.5, infl: 0.1, socLib: 2, secBias: -1, intlAlign: "oci", corrupt: 2,
+    eixoEsquerdaDireita: 42,
+    linha: "Tecnoprogressismo e inovação",
+    desc: "Prioriza ciência, automação e investimento tecnológico, com agenda social progressista; a transição exige capital e adaptação profissional.",
+    mods: { tax: 0, spend: 1, growth: 0.5, infl: 0.1, socLib: 2, secBias: -1, intlAlign: "oci", corrupt: 1,
       aprov: { elites: 5, trabalhadores: -3, jovens: 12, rural: -9, urbano: 6 } }
   },
   {
     id: 23, sigla: "PVL", nome: "Partido Verde Liberal", cor: "#58d68d",
-    linha: "Ambientalista de centro",
-    desc: "Sustentabilidade com pragmatismo de mercado: impostos verdes, crédito de carbono, sem romper com o agronegócio.",
-    mods: { tax: 0, spend: 0, growth: 0.1, infl: 0, socLib: 1, secBias: 0, intlAlign: "oci", corrupt: 1,
+    eixoEsquerdaDireita: 49,
+    linha: "Liberalismo verde e instrumentos de mercado",
+    desc: "Busca metas ambientais usando incentivos de mercado e instrumentos regulatórios compatíveis com a atividade empresarial.",
+    mods: { tax: 0, spend: 0, growth: 0.1, infl: 0, socLib: 1, secBias: 0, intlAlign: "oci", corrupt: 2,
       aprov: { elites: 3, trabalhadores: 0, jovens: 8, rural: -3, urbano: 4 } }
   },
   {
     id: 24, sigla: "FPA", nome: "Frente Popular Antifascista", cor: "#922b21",
-    linha: "Esquerda radical antifascista",
-    desc: "Nasceu para enfrentar o avanço da extrema direita. Governa em modo permanente de mobilização e confronto.",
-    mods: { tax: 2, spend: 2, growth: -0.4, infl: 0.3, socLib: 2, secBias: -2, intlAlign: "naoalin", corrupt: 2,
+    eixoEsquerdaDireita: 28,
+    linha: "Esquerda antifascista e mobilização popular",
+    desc: "Prioriza mobilização popular e defesa institucional antifascista; a política de confronto pode dificultar consensos legislativos.",
+    mods: { tax: 2, spend: 2, growth: -0.4, infl: 0.3, socLib: 2, secBias: -2, intlAlign: "naoalin", corrupt: 4,
       aprov: { elites: -9, trabalhadores: 8, jovens: 9, rural: -6, urbano: 4 } }
   },
   {
     id: 25, sigla: "AE", nome: "Aliança dos Empresários", cor: "#154360",
-    linha: "Direita empresarial",
-    desc: "Governa como se fosse conselho de acionistas. Corta impostos e burocracia; sindicatos não são bem-vindos.",
-    mods: { tax: -2, spend: -2, growth: 0.5, infl: -0.2, socLib: -1, secBias: 1, intlAlign: "oci", corrupt: 4,
+    eixoEsquerdaDireita: 80,
+    linha: "Capitalismo empresarial e desregulação",
+    desc: "Defende desregulação, redução de impostos e expansão do investimento privado, com menor prioridade para gasto público e negociação sindical.",
+    mods: { tax: -2, spend: -2, growth: 0.5, infl: -0.2, socLib: -1, secBias: 1, intlAlign: "oci", corrupt: 1,
       aprov: { elites: 14, trabalhadores: -10, jovens: 1, rural: -1, urbano: 4 } }
   },
   {
     id: 26, sigla: "PTR", nome: "Partido dos Trabalhadores Rurais", cor: "#7d6608",
-    linha: "Esquerda agrária",
-    desc: "Reforma agrária, cooperativas e crédito para pequenos produtores. Tensão constante com o latifúndio.",
+    eixoEsquerdaDireita: 40,
+    linha: "Cooperativismo agrário e reforma distributiva",
+    desc: "Prioriza cooperativas, reforma agrária e crédito a pequenos produtores, redistribuindo recursos dentro do setor rural.",
     mods: { tax: 1, spend: 1, growth: -0.2, infl: 0.1, socLib: 1, secBias: -1, intlAlign: "naoalin", corrupt: 2,
       aprov: { elites: -7, trabalhadores: 7, jovens: 1, rural: 10, urbano: -2 } }
   },
   {
     id: 27, sigla: "MDD", nome: "Movimento pela Democracia Direta", cor: "#af7ac5",
-    linha: "Centro reformista institucional",
-    desc: "Quer plebiscitos para tudo. Governa devagar, sempre perguntando ao Congresso e à opinião pública antes de agir.",
-    mods: { tax: 0, spend: 0, growth: 0, infl: 0, socLib: 1, secBias: 0, intlAlign: "naoalin", corrupt: 1,
+    eixoEsquerdaDireita: 50,
+    linha: "Democracia direta e participação institucional",
+    desc: "Amplia plebiscitos e participação direta na decisão pública; consultas frequentes podem alongar negociações e execução.",
+    mods: { tax: 0, spend: 0, growth: 0, infl: 0, socLib: 1, secBias: 0, intlAlign: "naoalin", corrupt: 4,
       aprov: { elites: 0, trabalhadores: 2, jovens: 3, rural: 0, urbano: 2 } }
   },
   {
     id: 28, sigla: "PNT", nome: "Partido Nacional do Trabalho", cor: "#ca6f1e",
-    linha: "Nacional-trabalhista (terceira via)",
-    desc: "Mistura protecionismo econômico com forte proteção social. Nem esquerda clássica nem direita liberal — via própria.",
+    eixoEsquerdaDireita: 50,
+    linha: "Nacional-trabalhismo protecionista",
+    desc: "Combina protecionismo, política industrial e proteção social nacional; seu arranjo cruza elementos de diferentes tradições ideológicas.",
     mods: { tax: 1, spend: 1, growth: 0, infl: 0.2, socLib: 0, secBias: 1, intlAlign: "isol", corrupt: 3,
       aprov: { elites: -3, trabalhadores: 9, jovens: -1, rural: 6, urbano: -1 } }
   },
   {
     id: 29, sigla: "UCU", nome: "União Cívica Urbana", cor: "#5dade2",
-    linha: "Centrista urbano tecnocrata",
-    desc: "Foco em mobilidade, saneamento e digitalização dos serviços públicos das grandes cidades. Fraco no campo.",
-    mods: { tax: 0, spend: 0, growth: 0.2, infl: -0.1, socLib: 1, secBias: 0, intlAlign: "oci", corrupt: 1,
+    eixoEsquerdaDireita: 54,
+    linha: "Urbanismo tecnocrático e serviços públicos",
+    desc: "Prioriza mobilidade, saneamento e digitalização urbana com planejamento técnico; sua base eleitoral é menos concentrada no meio rural.",
+    mods: { tax: 0, spend: 0, growth: 0.2, infl: -0.1, socLib: 1, secBias: 0, intlAlign: "oci", corrupt: 2,
       aprov: { elites: 3, trabalhadores: 1, jovens: 5, rural: -7, urbano: 10 } }
   },
   {
     id: 30, sigla: "FLP", nome: "Frente de Libertação Popular", cor: "#641e16",
-    linha: "Extrema esquerda revolucionária",
-    desc: "Fala em revolução, governa em crise permanente com o empresariado e os mercados financeiros internacionais.",
-    mods: { tax: 3, spend: 2, growth: -0.6, infl: 0.5, socLib: 2, secBias: -2, intlAlign: "naoalin", corrupt: 3,
+    eixoEsquerdaDireita: 10,
+    linha: "Socialismo revolucionário e nacionalização",
+    desc: "Defende transformação revolucionária, nacionalização e planejamento; mudanças abruptas tendem a elevar a resistência de elites econômicas.",
+    mods: { tax: 3, spend: 2, growth: -0.6, infl: 0.5, socLib: 2, secBias: -2, intlAlign: "naoalin", corrupt: 5,
       aprov: { elites: -16, trabalhadores: 13, jovens: 7, rural: -4, urbano: 0 } }
   },
   {
     id: 31, sigla: "POP", nome: "Partido da Ordem e Progresso", cor: "#283747",
-    linha: "Direita autoritária law-and-order",
-    desc: "Segurança pública acima de tudo, com pouca paciência para garantias processuais. Popular quando a criminalidade assusta.",
+    eixoEsquerdaDireita: 88,
+    linha: "Autoritarismo punitivo e lei e ordem",
+    desc: "Prioriza policiamento punitivo, ordem pública e autoridade executiva, com menor ênfase em garantias liberais.",
     mods: { tax: 0, spend: 1, growth: 0.1, infl: 0.1, socLib: -2, secBias: 3, intlAlign: "naoalin", corrupt: 4,
       aprov: { elites: 3, trabalhadores: 3, jovens: -6, rural: 6, urbano: 2 } }
   },
   {
     id: 32, sigla: "AES", nome: "Aliança Ecossocialista", cor: "#1e8449",
-    linha: "Esquerda verde radical",
-    desc: "Decrescimento planejado, nacionalização de energia e fim dos subsídios a combustíveis fósseis. Ambição imensa, resistência também.",
+    eixoEsquerdaDireita: 21,
+    linha: "Ecossocialismo e controle público da energia",
+    desc: "Propõe transição ecológica planejada, controle público de setores energéticos e redistribuição; as políticas exigem reorganização produtiva.",
     mods: { tax: 2, spend: 2, growth: -0.5, infl: 0.2, socLib: 2, secBias: -1, intlAlign: "naoalin", corrupt: 1,
       aprov: { elites: -11, trabalhadores: 3, jovens: 10, rural: -9, urbano: 5 } }
   },
   {
     id: 33, sigla: "MPP", nome: "Movimento Patriota Popular", cor: "#b03a2e",
-    linha: "Populista de direita",
-    desc: "Discurso direto contra 'a elite de sempre'. Promete tudo, financia com o que der — e cobra depois.",
+    eixoEsquerdaDireita: 76,
+    linha: "Populismo nacional-conservador e gasto popular",
+    desc: "Combina nacionalismo, conservadorismo e promessas de gasto popular, com tendência à proteção comercial e à expansão de despesas.",
     mods: { tax: 0, spend: 2, growth: -0.2, infl: 0.4, socLib: -1, secBias: 1, intlAlign: "isol", corrupt: 4,
       aprov: { elites: -6, trabalhadores: 10, jovens: -2, rural: 8, urbano: -3 } }
   },
   {
     id: 34, sigla: "PCT", nome: "Partido Cultural Tradicionalista", cor: "#784212",
-    linha: "Conservador cultural",
-    desc: "Defende costumes, currículo escolar tradicional e cautela com mudanças sociais aceleradas.",
-    mods: { tax: 0, spend: -1, growth: 0, infl: -0.1, socLib: -3, secBias: 1, intlAlign: "naoalin", corrupt: 2,
+    eixoEsquerdaDireita: 55,
+    linha: "Tradicionalismo cultural",
+    desc: "Defende continuidade cultural, currículo tradicional e mudanças sociais graduais, com posição econômica relativamente centrista.",
+    mods: { tax: 0, spend: -1, growth: 0, infl: -0.1, socLib: -3, secBias: 1, intlAlign: "naoalin", corrupt: 3,
       aprov: { elites: 1, trabalhadores: 2, jovens: -9, rural: 8, urbano: -4 } }
   },
   {
     id: 35, sigla: "UPO", nome: "União dos Povos Originários", cor: "#b9770e",
-    linha: "Indígena e minorias",
-    desc: "Representa povos tradicionais historicamente excluídos. Pequena base, mas pauta moral forte em direitos e demarcação de terras.",
-    mods: { tax: 1, spend: 1, growth: -0.2, infl: 0, socLib: 2, secBias: -2, intlAlign: "naoalin", corrupt: 1,
+    eixoEsquerdaDireita: 37,
+    linha: "Direitos originários, território e inclusão",
+    desc: "Prioriza direitos originários, proteção territorial e inclusão de comunidades historicamente marginalizadas.",
+    mods: { tax: 1, spend: 1, growth: -0.2, infl: 0, socLib: 2, secBias: -2, intlAlign: "naoalin", corrupt: 2,
       aprov: { elites: -6, trabalhadores: 1, jovens: 5, rural: -6, urbano: 2 } }
   },
   {
     id: 36, sigla: "FFL", nome: "Frente Financeira Liberal", cor: "#1a5276",
-    linha: "Direita financista / austeridade",
-    desc: "Corte de gastos, independência total do banco central e disciplina fiscal acima de tudo. Mercados adoram, ruas nem tanto.",
+    eixoEsquerdaDireita: 68,
+    linha: "Liberalismo financeiro e austeridade",
+    desc: "Prioriza mercados financeiros, independência monetária e austeridade fiscal; cortes de despesa podem gerar resistência entre beneficiários de serviços públicos.",
     mods: { tax: -1, spend: -3, growth: 0.3, infl: -0.5, socLib: 0, secBias: 1, intlAlign: "oci", corrupt: 2,
       aprov: { elites: 13, trabalhadores: -11, jovens: -1, rural: -2, urbano: 3 } }
   },
   {
     id: 37, sigla: "PJR", nome: "Partido da Juventude Revolucionária", cor: "#e6194b",
-    linha: "Esquerda jovem radical",
-    desc: "Inexperiente, ambicioso e impaciente com o status quo. Quer tudo mudado ontem — o que assusta investidores hoje.",
-    mods: { tax: 2, spend: 2, growth: -0.4, infl: 0.3, socLib: 3, secBias: -2, intlAlign: "naoalin", corrupt: 1,
+    eixoEsquerdaDireita: 27,
+    linha: "Radicalismo geracional e direitos sociais",
+    desc: "Defende reformas geracionais rápidas, direitos sociais e participação juvenil; a agenda de mudança pode enfrentar oposição institucional.",
+    mods: { tax: 2, spend: 2, growth: -0.4, infl: 0.3, socLib: 3, secBias: -2, intlAlign: "naoalin", corrupt: 3,
       aprov: { elites: -10, trabalhadores: 4, jovens: 15, rural: -8, urbano: 4 } }
   },
   {
     id: 38, sigla: "MPI", nome: "Movimento Pacifista Internacional", cor: "#48c9b0",
-    linha: "Centro-esquerda pacifista globalista",
-    desc: "Corta o orçamento de defesa e aposta tudo em diplomacia multilateral e cooperação internacional.",
-    mods: { tax: 0, spend: 1, growth: 0.1, infl: 0, socLib: 2, secBias: -3, intlAlign: "oci", corrupt: 1,
+    eixoEsquerdaDireita: 34,
+    linha: "Pacifismo multilateral e cooperação internacional",
+    desc: "Prioriza diplomacia multilateral, contenção de conflitos e cooperação; a postura pacifista favorece soluções negociadas.",
+    mods: { tax: 0, spend: 1, growth: 0.1, infl: 0, socLib: 2, secBias: -3, intlAlign: "oci", corrupt: 3,
       aprov: { elites: 1, trabalhadores: 0, jovens: 7, rural: -4, urbano: 5 } }
   },
   {
     id: 39, sigla: "ATV", nome: "Aliança da Terceira Via", cor: "#a04000",
-    linha: "Centrista pragmático",
-    desc: "Sem grandes bandeiras ideológicas: pega o que funciona da esquerda e da direita, governa no meio-termo constante.",
-    mods: { tax: 0, spend: 0, growth: 0.1, infl: 0, socLib: 0, secBias: 0, intlAlign: "naoalin", corrupt: 2,
+    eixoEsquerdaDireita: 50,
+    linha: "Pragmatismo centrista e coalizões",
+    desc: "Adota pragmatismo e coalizões amplas, escolhendo políticas segundo sua viabilidade mais que por uma doutrina única.",
+    mods: { tax: 0, spend: 0, growth: 0.1, infl: 0, socLib: 0, secBias: 0, intlAlign: "naoalin", corrupt: 3,
       aprov: { elites: 1, trabalhadores: 1, jovens: 1, rural: 1, urbano: 1 } }
   },
   {
     id: 40, sigla: "PAN", nome: "Partido Autocrático Nacional", cor: "#17202a",
-    linha: "Extrema direita autoritária nacionalista",
-    desc: "Poder centralizado, imprensa vigiada, oposição tolerada só no papel. Governa forte — até o dia em que tudo vira contra ele.",
-    mods: { tax: 0, spend: 1, growth: -0.1, infl: 0.2, socLib: -3, secBias: 3, intlAlign: "isol", corrupt: 6,
+    eixoEsquerdaDireita: 98,
+    linha: "Autocracia nacionalista e centralização estatal",
+    desc: "Defende centralização autoritária do poder e nacionalismo, restringindo controles institucionais e pluralismo político.",
+    mods: { tax: 0, spend: 1, growth: -0.1, infl: 0.2, socLib: -3, secBias: 3, intlAlign: "isol", corrupt: 3,
       aprov: { elites: -2, trabalhadores: 4, jovens: -9, rural: 7, urbano: -5 } }
   }
 ];
@@ -1964,7 +2019,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.05,
     "alavancaCongresso": 2.0,
     "disciplinaCoalizao": 0.85,
-    "viésGuerra": -0.08
+    "viésGuerra": 0.12
   },
   {
     "id": 2,
@@ -1978,7 +2033,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.08,
     "alavancaCongresso": 1.7,
     "disciplinaCoalizao": 0.82,
-    "viésGuerra": -0.12
+    "viésGuerra": -0.10
   },
   {
     "id": 3,
@@ -1992,7 +2047,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.18,
     "alavancaCongresso": 0.5,
     "disciplinaCoalizao": 0.88,
-    "viésGuerra": 0.06
+    "viésGuerra": 0.02
   },
   {
     "id": 4,
@@ -2006,7 +2061,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.12,
     "alavancaCongresso": -0.5,
     "disciplinaCoalizao": 0.76,
-    "viésGuerra": -0.05
+    "viésGuerra": -0.04
   },
   {
     "id": 5,
@@ -2020,7 +2075,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.1,
     "alavancaCongresso": -1.0,
     "disciplinaCoalizao": 0.92,
-    "viésGuerra": 0.03
+    "viésGuerra": 0.05
   },
   {
     "id": 6,
@@ -2034,7 +2089,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.2,
     "alavancaCongresso": 0.0,
     "disciplinaCoalizao": 0.9,
-    "viésGuerra": 0.02
+    "viésGuerra": -0.02
   },
   {
     "id": 7,
@@ -2048,7 +2103,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.08,
     "alavancaCongresso": -1.4,
     "disciplinaCoalizao": 0.94,
-    "viésGuerra": 0.04
+    "viésGuerra": 0.01
   },
   {
     "id": 8,
@@ -2062,7 +2117,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.25,
     "alavancaCongresso": 1.8,
     "disciplinaCoalizao": 0.72,
-    "viésGuerra": -0.1
+    "viésGuerra": 0.10
   },
   {
     "id": 9,
@@ -2076,7 +2131,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.02,
     "alavancaCongresso": 2.5,
     "disciplinaCoalizao": 0.7,
-    "viésGuerra": -0.16
+    "viésGuerra": 0.20
   },
   {
     "id": 10,
@@ -2090,7 +2145,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.26,
     "alavancaCongresso": -2.2,
     "disciplinaCoalizao": 0.96,
-    "viésGuerra": 0.08
+    "viésGuerra": -0.07
   },
   {
     "id": 11,
@@ -2104,7 +2159,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.03,
     "alavancaCongresso": 0.8,
     "disciplinaCoalizao": 0.84,
-    "viésGuerra": -0.02
+    "viésGuerra": 0.02
   },
   {
     "id": 12,
@@ -2118,7 +2173,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.05,
     "alavancaCongresso": 1.2,
     "disciplinaCoalizao": 0.8,
-    "viésGuerra": -0.07
+    "viésGuerra": -0.08
   },
   {
     "id": 13,
@@ -2132,7 +2187,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.08,
     "alavancaCongresso": 1.3,
     "disciplinaCoalizao": 0.78,
-    "viésGuerra": -0.13
+    "viésGuerra": -0.12
   },
   {
     "id": 14,
@@ -2146,7 +2201,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.01,
     "alavancaCongresso": 2.8,
     "disciplinaCoalizao": 0.68,
-    "viésGuerra": -0.19
+    "viésGuerra": 0.22
   },
   {
     "id": 15,
@@ -2160,7 +2215,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.0,
     "alavancaCongresso": -0.4,
     "disciplinaCoalizao": 0.95,
-    "viésGuerra": 0.01
+    "viésGuerra": 0.03
   },
   {
     "id": 16,
@@ -2174,7 +2229,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.04,
     "alavancaCongresso": 0.6,
     "disciplinaCoalizao": 0.8,
-    "viésGuerra": -0.03
+    "viésGuerra": -0.02
   },
   {
     "id": 17,
@@ -2188,7 +2243,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.06,
     "alavancaCongresso": 0.8,
     "disciplinaCoalizao": 0.7,
-    "viésGuerra": -0.09
+    "viésGuerra": -0.18
   },
   {
     "id": 18,
@@ -2202,7 +2257,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.2,
     "alavancaCongresso": 0.2,
     "disciplinaCoalizao": 0.86,
-    "viésGuerra": 0.04
+    "viésGuerra": -0.07
   },
   {
     "id": 19,
@@ -2216,7 +2271,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.06,
     "alavancaCongresso": 1.6,
     "disciplinaCoalizao": 0.82,
-    "viésGuerra": -0.09
+    "viésGuerra": -0.04
   },
   {
     "id": 20,
@@ -2230,7 +2285,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.04,
     "alavancaCongresso": 0.6,
     "disciplinaCoalizao": 0.84,
-    "viésGuerra": -0.04
+    "viésGuerra": -0.06
   },
   {
     "id": 21,
@@ -2244,7 +2299,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.04,
     "alavancaCongresso": 0.4,
     "disciplinaCoalizao": 0.86,
-    "viésGuerra": -0.01
+    "viésGuerra": 0.02
   },
   {
     "id": 22,
@@ -2258,7 +2313,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.24,
     "alavancaCongresso": 0.4,
     "disciplinaCoalizao": 0.74,
-    "viésGuerra": -0.03
+    "viésGuerra": 0.04
   },
   {
     "id": 23,
@@ -2272,7 +2327,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.14,
     "alavancaCongresso": 0.1,
     "disciplinaCoalizao": 0.9,
-    "viésGuerra": -0.08
+    "viésGuerra": -0.06
   },
   {
     "id": 24,
@@ -2286,7 +2341,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.1,
     "alavancaCongresso": 1.5,
     "disciplinaCoalizao": 0.68,
-    "viésGuerra": -0.11
+    "viésGuerra": 0.08
   },
   {
     "id": 25,
@@ -2300,7 +2355,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.28,
     "alavancaCongresso": -1.4,
     "disciplinaCoalizao": 0.94,
-    "viésGuerra": 0.09
+    "viésGuerra": -0.04
   },
   {
     "id": 26,
@@ -2314,7 +2369,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.04,
     "alavancaCongresso": 0.7,
     "disciplinaCoalizao": 0.82,
-    "viésGuerra": -0.06
+    "viésGuerra": -0.03
   },
   {
     "id": 27,
@@ -2328,7 +2383,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.0,
     "alavancaCongresso": 0.2,
     "disciplinaCoalizao": 0.62,
-    "viésGuerra": -0.03
+    "viésGuerra": -0.08
   },
   {
     "id": 28,
@@ -2342,7 +2397,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.08,
     "alavancaCongresso": 1.2,
     "disciplinaCoalizao": 0.8,
-    "viésGuerra": -0.07
+    "viésGuerra": 0.08
   },
   {
     "id": 29,
@@ -2356,7 +2411,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.12,
     "alavancaCongresso": 0.0,
     "disciplinaCoalizao": 0.84,
-    "viésGuerra": 0.02
+    "viésGuerra": 0.00
   },
   {
     "id": 30,
@@ -2370,7 +2425,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.22,
     "alavancaCongresso": 1.8,
     "disciplinaCoalizao": 0.68,
-    "viésGuerra": -0.14
+    "viésGuerra": 0.16
   },
   {
     "id": 31,
@@ -2384,7 +2439,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.03,
     "alavancaCongresso": 1.7,
     "disciplinaCoalizao": 0.78,
-    "viésGuerra": -0.13
+    "viésGuerra": 0.15
   },
   {
     "id": 32,
@@ -2398,7 +2453,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.14,
     "alavancaCongresso": 1.9,
     "disciplinaCoalizao": 0.72,
-    "viésGuerra": -0.14
+    "viésGuerra": 0.02
   },
   {
     "id": 33,
@@ -2412,7 +2467,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.02,
     "alavancaCongresso": 1.8,
     "disciplinaCoalizao": 0.7,
-    "viésGuerra": -0.1
+    "viésGuerra": 0.12
   },
   {
     "id": 34,
@@ -2426,7 +2481,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.02,
     "alavancaCongresso": 0.8,
     "disciplinaCoalizao": 0.8,
-    "viésGuerra": -0.08
+    "viésGuerra": 0.02
   },
   {
     "id": 35,
@@ -2440,7 +2495,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": -0.08,
     "alavancaCongresso": 1.1,
     "disciplinaCoalizao": 0.76,
-    "viésGuerra": -0.11
+    "viésGuerra": -0.14
   },
   {
     "id": 36,
@@ -2454,7 +2509,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.16,
     "alavancaCongresso": -1.8,
     "disciplinaCoalizao": 0.96,
-    "viésGuerra": 0.07
+    "viésGuerra": -0.02
   },
   {
     "id": 37,
@@ -2468,7 +2523,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.18,
     "alavancaCongresso": 1.4,
     "disciplinaCoalizao": 0.66,
-    "viésGuerra": -0.12
+    "viésGuerra": 0.05
   },
   {
     "id": 38,
@@ -2496,7 +2551,7 @@ const PARTY_STRUCTURAL_PROFILES = [
     "viésCrescimento": 0.06,
     "alavancaCongresso": 0.2,
     "disciplinaCoalizao": 0.78,
-    "viésGuerra": 0.0
+    "viésGuerra": -0.01
   },
   {
     "id": 40,
@@ -2505,20 +2560,127 @@ const PARTY_STRUCTURAL_PROFILES = [
     "baseSocial": "aparelho estatal, setores de segurança e interior",
     "extra": "A bancada prefere decisões rápidas e pouco negociadas, reduzindo o peso do Congresso formal.",
     "doutrina": "Controle administrativo pode acelerar execução, mas eleva corrupção e risco de repressão.",
-    "congresso": "Congressional climate começa baixo; medidas executivas têm facilidade, mas reformas legais enfrentam resistência institucional.",
+    "congresso": "O clima parlamentar inicial é baixo; medidas executivas têm facilidade, mas reformas legais enfrentam resistência institucional.",
     "viésFiscal": 0.06,
     "viésCrescimento": -0.03,
     "alavancaCongresso": 2.2,
     "disciplinaCoalizao": 0.55,
-    "viésGuerra": -0.18
+    "viésGuerra": 0.22
   }
 ];
 PARTY_STRUCTURAL_PROFILES.forEach((perfil) => {
   const party = PARTIES.find((p) => p.id === perfil.id);
   if (!party) return;
   party.perfil = perfil;
-  party.desc = `${party.desc} Base social característica: ${perfil.baseSocial}. ${perfil.extra} Mecânica econômica: ${perfil.economia}. ${perfil.doutrina} Comportamento parlamentar: ${perfil.congresso}`;
+  // A descrição do cartão permanece curta; os detalhes completos são exibidos
+  // no painel de indicadores-base e na Enciclopédia gerada a partir destes dados.
+  party.tagsPesquisa = [party.linha, party.desc, perfil.tag, perfil.economia, perfil.baseSocial,
+    perfil.extra, perfil.doutrina, perfil.congresso, perfil.viésFiscal, perfil.viésCrescimento,
+    perfil.alavancaCongresso, perfil.disciplinaCoalizao, perfil.viésGuerra].join(" ");
 });
+
+function categoriaEixoPartido(p) {
+  const eixo = Number(p?.eixoEsquerdaDireita ?? 50);
+  if (eixo <= 14) return "Extrema-esquerda";
+  if (eixo <= 29) return "Esquerda";
+  if (eixo <= 44) return "Centro-esquerda";
+  if (eixo <= 56) return "Centro";
+  if (eixo <= 71) return "Centro-direita";
+  if (eixo <= 86) return "Direita";
+  return "Extrema-direita";
+}
+function dificuldadePartido(p) {
+  const m = p.mods || {}, f = p.perfil || {};
+  const growthq = 1.2 + (Number(m.growth) || 0) + (Number(f.viésCrescimento) || 0);
+  const infl0 = 3.5 + (Number(m.infl) || 0);
+  const tax0 = clampN(30 + (Number(m.tax) || 0) * 3 + (Number(f.viésFiscal) || 0) * 4, 12, 65);
+  const groupMods = Object.values(m.aprov || {}).map(Number).filter(Number.isFinite);
+  const polarization = groupMods.length ? Math.max(...groupMods) - Math.min(...groupMods) : 0;
+  const score = 5
+    + Math.max(0, 1.4 - growthq) * 0.9
+    + Math.max(0, infl0 - 3.5) * 0.35
+    + ((Number(m.corrupt) || 0) - 2.4) * 0.45
+    + Math.max(0, Number(f.viésGuerra) || 0) * 5
+    + Math.max(0, Number(f.viésFiscal) || 0) * 5
+    + Math.max(0, -(Number(m.spend) || 0)) * 0.18
+    + Math.max(0, tax0 - 35) * 0.025
+    + polarization * 0.015
+    - Math.max(0, growthq - 1.4) * 0.20
+    - Math.max(0, 3.5 - infl0) * 0.15
+    - Math.max(0, -(Number(f.viésGuerra) || 0)) * 2;
+  return clampN(Math.round(score * 10) / 10, 1, 10);
+}
+function faixaDificuldadePartido(n) {
+  return n <= 3.5 ? "Baixa" : n <= 5.5 ? "Moderada" : n <= 7.5 ? "Alta" : "Muito alta";
+}
+function formatarSinal(n, casas = 2) {
+  const v = Number(n) || 0;
+  return `${v > 0 ? "+" : ""}${fmt(v, casas)}`;
+}
+function rotuloAlinhamentoExterno(k) {
+  return ({ oci: "Cooperação ocidental / internacional", isol: "Isolacionista", naoalin: "Não alinhado" })[k] || String(k || "Não especificado");
+}
+function renderIndicadoresBasePartido(p) {
+  const m = p.mods || {}, f = p.perfil || {}, eixo = Number(p.eixoEsquerdaDireita) || 0;
+  const imposto = clampN(30 + (Number(m.tax)||0) * 3 + (Number(f.viésFiscal)||0) * 4, 12, 65);
+  const crescimento = 1.2 + (Number(m.growth)||0) + (Number(f.viésCrescimento)||0);
+  const inflacao = 3.5 + (Number(m.infl)||0);
+  const gastos = [
+    ["Saúde",clampN(50+(Number(m.spend)||0)*4,20,90)],
+    ["Educação",clampN(50+(Number(m.spend)||0)*4,20,90)],
+    ["Segurança pública",clampN(50+(Number(m.secBias)||0)*5,20,90)],
+    ["Infraestrutura",clampN(50+(Number(m.spend)||0)*3,20,90)],
+    ["Previdência",clampN(50+(Number(m.spend)||0)*4,20,90)],
+    ["Defesa nacional",clampN(50+(Number(m.secBias)||0)*4,20,90)]
+  ];
+  const grupos = [["Elites econômicas","elites"],["Trabalhadores","trabalhadores"],["Jovens","jovens"],["População rural","rural"],["População urbana","urbano"]];
+  const linhaBase = (rotulo, valor, explicacao="") => `<div class="base-partido-linha"><span>${escaparHtmlEnciclopedia(rotulo)}</span><b>${escaparHtmlEnciclopedia(valor)}</b>${explicacao ? `<small>${escaparHtmlEnciclopedia(explicacao)}</small>` : ""}</div>`;
+  const perfilFields = [
+    ["Família / tag estrutural",f.tag], ["Arquitetura econômica",f.economia], ["Base social",f.baseSocial],
+    ["Comportamento extra da bancada",f.extra], ["Doutrina",f.doutrina], ["Comportamento no Congresso",f.congresso],
+    ["Viés fiscal",formatarSinal(f.viésFiscal),"Entra na fórmula da alíquota inicial e influencia a gestão fiscal."],
+    ["Viés de crescimento",formatarSinal(f.viésCrescimento),"Entra diretamente no crescimento inicial."],
+    ["Alavanca no Congresso",fmt(f.alavancaCongresso,2)], ["Disciplina de coalizão",fmt(f.disciplinaCoalizao,2)],
+    ["Índice-base de postura de guerra",formatarSinal(f.viésGuerra),"Negativo reduz tensão/hostilidade; positivo eleva tensão/hostilidade."]
+  ];
+  const difficulty = dificuldadePartido(p);
+  return `<div class="base-partido-grade">
+    <section class="base-partido-bloco"><h4>Posição política</h4>
+      ${linhaBase("Eixo Esquerda–Direita",`${eixo}/100 · ${categoriaEixoPartido(p)}`,"0 = extrema-esquerda; 50 = centro; 100 = extrema-direita.")}
+      ${linhaBase("Família ideológica",p.linha)}
+      ${linhaBase("Identificador técnico",String(p.id))}
+    </section>
+    <section class="base-partido-bloco"><h4>Macroeconomia inicial</h4>
+      ${linhaBase("Modificador tributário",formatarSinal(m.tax,0),"A alíquota de partida é calculada junto ao viés fiscal estrutural.")}
+      ${linhaBase("Alíquota tributária inicial",`${fmt(imposto,1)}%`,"clamp(30 + tax × 3 + viésFiscal × 4, 12, 65)")}
+      ${linhaBase("Modificador de gasto",formatarSinal(m.spend,0),"Modifica as dotações-base de saúde, educação, infraestrutura e previdência.")}
+      ${linhaBase("Modificador de crescimento",formatarSinal(m.growth,2))}
+      ${linhaBase("Crescimento inicial",`${formatarSinal(crescimento,2)}% por trimestre`,"1,2 + growth + viés de crescimento")}
+      ${linhaBase("Modificador de inflação",formatarSinal(m.infl,2))}
+      ${linhaBase("Inflação inicial",`${fmt(inflacao,2)}% a.a.`,"3,5 + infl")}
+    </section>
+    <section class="base-partido-bloco"><h4>Orçamento de partida</h4>
+      ${gastos.map(([k,v])=>linhaBase(k,`${fmt(v,0)}/100`)).join("")}
+      ${linhaBase("Modificador de segurança",formatarSinal(m.secBias,0),"Afeta as dotações-base de segurança e defesa, além de interagir com mecânicas de segurança.")}
+      ${linhaBase("Liberalismo social",formatarSinal(m.socLib,0),"Modificador sociopolítico do perfil partidário.")}
+    </section>
+    <section class="base-partido-bloco"><h4>Integridade e diplomacia</h4>
+      ${linhaBase("Corrupção de partida",`${fmt(m.corrupt,1)}/20`,"Valor inicial da corrupção sistêmica atual; suas consequências persistem enquanto o indicador não for alterado por eventos e políticas.")}
+      ${linhaBase("Alinhamento internacional",rotuloAlinhamentoExterno(m.intlAlign))}
+      ${linhaBase("Postura de guerra",`${formatarSinal(f.viésGuerra)} (−0,22 a +0,22)`,"Modifica tensão inicial em ×20 e hostilidade efetiva em ×35.")}
+    </section>
+    <section class="base-partido-bloco"><h4>Modificadores de aprovação por grupo</h4>
+      ${grupos.map(([nome,key])=>linhaBase(nome,formatarSinal((m.aprov||{})[key],0),"Ajuste partidário inicial da relação política com o grupo.")).join("")}
+    </section>
+    <section class="base-partido-bloco"><h4>Perfil estrutural completo</h4>
+      ${perfilFields.map(([rot,val,exp])=>linhaBase(rot,val==null?"Não especificado":String(val),exp||"")).join("")}
+    </section>
+    <section class="base-partido-bloco base-partido-dificuldade"><h4>Dificuldade estimada</h4>
+      <div class="dificuldade-nota"><strong>${fmt(difficulty,1)}/10 · ${faixaDificuldadePartido(difficulty)}</strong><p>Estimativa heurística baseada em crescimento e inflação iniciais, corrupção, postura de guerra, viés fiscal, orçamento, alíquota e dispersão dos modificadores de aprovação. Não é um atributo usado diretamente para alterar o jogo.</p></div>
+    </section>
+  </div>`;
+}
+
 /* ==========================================================================
    DARMONDIA — Nações e blocos com quem Darmondia mantém relações
    ========================================================================== */
@@ -2773,7 +2935,7 @@ const EVENTOS_BASE = [
     peso: () => 0.5,
     opcoes: [
       { label: "Confirmar e explicar o contexto", efeitos: (s) => { s.aprovacao -= 1; return "A transparência limita o estrago, mas o assunto domina o noticiário por dias."; } },
-      { label: "Negar veementemente", efeitos: (s) => { s.aprovacao -= 3; return "A negativa desmoronada quando novos vazamentos confirmam os números."; } }
+      { label: "Negar veementemente", efeitos: (s) => { s.aprovacao -= 3; return "A negativa desmorona quando novos vazamentos confirmam os números."; } }
     ]
   },
   {
@@ -2789,7 +2951,7 @@ const EVENTOS_BASE = [
 
   // ---------------------------------------------------------- NOVOS EVENTOS ÚNICOS (lote adicional)
   {
-    id: "evh_apagao_energetico", tab: "financas", titulo: "Apagão energético nacional",
+    id: "evh_apagao_energetico", tab: "financas", titulo: "Falha em cascata na rede elétrica",
     texto: "Uma falha em cascata no sistema elétrico deixa metrópoles inteiras sem luz por horas, expondo décadas de subinvestimento em energia.",
     condicao: (s) => s.spend.infraestrutura < 55,
     peso: () => 1.1,
@@ -3444,7 +3606,7 @@ const EVENTOS_COMPLEXOS = [
     peso:1.3,
     opcoes:[
       {label:"Isolar sistemas e reconstruir a infraestrutura digital", efeitos:(s)=>{debitarTesouro(s, 14, "despesa");s.acessoDigital-=2;s.mobilidade-=1;s.confiancaInstitucional+=2;agendarEfeito(s,3,"Reforço cibernético",st=>{st.acessoDigital+=5;st.produtividade+=0.8;return "A atualização da segurança digital reduz a vulnerabilidade do Estado.";});return "Os sistemas são isolados, interrompendo serviços no curto prazo para evitar um dano maior.";}},
-      {label:"Acusar o provável responsável publicamente", efeitos:(s)=>{s.relacoes.khazyr-=8;s.relacoes.vestland-=3;s.aprovacao+=1;s.defesa.tensao.norterra+=3;return "A acusação ganha apoio interno, mas amplia o risco de escalada diplomática.";}},
+      {label:"Acusar o provável responsável publicamente", efeitos:(s)=>{s.relacoes.khazyr-=8;s.relacoes.vestland-=3;s.aprovacao+=1;s.defesa.tensao.khazyr=Math.min(100,(s.defesa.tensao.khazyr||0)+3);return "A acusação ganha apoio interno, mas amplia o risco de escalada diplomática.";}},
       {label:"Minimizar o episódio e manter os serviços ativos", efeitos:(s)=>{s.confiancaInstitucional-=4;s.produtividade-=1;s.tensaoSocial+=3;agendarEfeito(s,2,"Segundo ataque cibernético",st=>{debitarTesouro(st, 8, "despesa");st.acessoDigital-=4;st.aprovacao-=2;return "Uma segunda invasão mostra que a contenção inicial foi insuficiente.";});return "Os serviços continuam funcionando, mas a vulnerabilidade permanece aberta.";}}
     ]
   },
@@ -3497,6 +3659,7 @@ const EVENTOS_COMPLEXOS = [
 
 
 function opcoesDilemaNovo(mode,cid){
+  const ten=(s,d)=>{const T=s.defesa&&s.defesa.tensao;if(T&&T[cid]!==undefined)T[cid]=clampN(T[cid]+d,0,100);};
   const rel=(s,d)=>{if(s.relacoes&&s.relacoes[cid]!==undefined)s.relacoes[cid]=clampN(s.relacoes[cid]+d,0,100);};
   const O={
     porto:[
@@ -3541,7 +3704,7 @@ function opcoesDilemaNovo(mode,cid){
     ],
     ciber:[
       {label:"Reconstruir sistemas e divulgar o ataque",efeitos:s=>{debitarTesouro(s,9,"cibersegurança");s.acessoDigital+=4;s.confiancaInstitucional+=2;s.aprovacao-=1;return "A resposta é transparente e técnica, mas serviços sofrem interrupções."}},
-      {label:"Atribuir o ataque e responder diplomaticamente",efeitos:s=>{rel(s,-8);s.tensaoSocial+=1;s.defesa.tensao.norterra=Math.min(100,s.defesa.tensao.norterra+3);return "A reação firme aumenta dissuasão, mas transforma incidente digital em crise geopolítica."}},
+      {label:"Atribuir o ataque e responder diplomaticamente",efeitos:s=>{rel(s,-8);s.tensaoSocial+=1;ten(s,3);return "A reação firme aumenta dissuasão, mas transforma incidente digital em crise geopolítica."}},
       {label:"Minimizar o episódio e manter os sistemas",efeitos:s=>{s.confiancaInstitucional-=4;s.produtividade-=1;agendarEfeito(s,2,"Nova invasão cibernética",st=>{debitarTesouro(st,7,"segundo ataque cibernético");st.acessoDigital-=4;st.aprovacao-=2;return "Um segundo ataque expõe o custo de não corrigir a vulnerabilidade."});return "O governo preserva a aparência de normalidade, mas deixa a brecha aberta."}}
     ],
     fiscal:[
@@ -3570,13 +3733,13 @@ function opcoesDilemaNovo(mode,cid){
       {label:"Impor controles temporários de capital",efeitos:s=>{s.pressaoCambial-=6;s.mercado.confianca-=4;s.investimento-=0.5;s.corrupcao+=0.3;return "A fuga desacelera, mas investidores exigem prêmio maior para retornar."}}
     ],
     fronteira:[
-      {label:"Criar patrulha conjunta",efeitos:s=>{debitarTesouro(s,6,"segurança fronteiriça");rel(s,5);s.defesa.tensao.norterra=Math.max(0,s.defesa.tensao.norterra-5);return "A patrulha conjunta reduz incidentes, mas exige gasto operacional."}},
+      {label:"Criar patrulha conjunta",efeitos:s=>{debitarTesouro(s,6,"segurança fronteiriça");rel(s,5);ten(s,-5);return "A patrulha conjunta reduz incidentes, mas exige gasto operacional."}},
       {label:"Fechar temporariamente o posto",efeitos:s=>{rel(s,-8);s.crescimento-=0.3;s.aprovacao+=1;s.tensaoSocial+=1;return "O fechamento mostra firmeza, mas interrompe comércio e deteriora a relação."}},
       {label:"Aceitar observadores internacionais",efeitos:s=>{rel(s,3);s.confiancaInstitucional+=2;s.relacoes.onu=clampN(s.relacoes.onu+4,0,100);return "Observadores reduzem a ambiguidade, ao preço de limitar autonomia operacional."}}
     ],
     pesca:[
       {label:"Negociar cotas conjuntas",efeitos:s=>{rel(s,6);s.segurancaAlimentar+=0.5;s.tensaoSocial-=1;return "As cotas protegem o estoque e preservam relação previsível."}},
-      {label:"Fiscalizar agressivamente",efeitos:s=>{debitarTesouro(s,7,"patrulha marítima");rel(s,-10);s.defesa.tensao.norterra=Math.min(100,s.defesa.tensao.norterra+4);return "A fiscalização reduz pesca ilegal, mas cria risco de incidente."}},
+      {label:"Fiscalizar agressivamente",efeitos:s=>{debitarTesouro(s,7,"patrulha marítima");rel(s,-10);ten(s,4);return "A fiscalização reduz pesca ilegal, mas cria risco de incidente."}},
       {label:"Liberar expansão da frota nacional",efeitos:s=>{creditarTesouro(s,3);rel(s,-8);s.segurancaAlimentar+=0.8;s.poluicao+=1;return "A frota nacional ganha espaço, mas o vizinho interpreta como escalada."}}
     ],
     aviacao:[
@@ -3685,8 +3848,28 @@ const DILEMAS_NOVOS = [
   {id:"089",mode:"tecnologia",tab:"financas",peso:0.87,titulo:c=>`Automação ameaça empregos industriais`,texto:c=>`Uma empresa de ${c.nome} anuncia robótica avançada que substituirá milhares de tarefas repetitivas.`},
   {id:"090",mode:"tecnologia",tab:"financas",peso:0.55,titulo:c=>`Infraestrutura de nuvem entra em crise`,texto:c=>`Servidores de um provedor de ${c.nome} apresentam interrupções e deixam serviços públicos fora do ar.`},
 ]
+const PAISES_POR_MODO = {
+  porto:["vestland","khazyr","aurelia","cindara","makuria"],
+  energia:["cindara","khazyr","norterra","vestland","boravia"],
+  alimentos:["makuria","solenia","norterra","aurelia","vestland"],
+  habitacao:["vestland","khazyr","aurelia","cindara"],
+  credito:["vestland","khazyr","aurelia","cindara","tessenor"],
+  medicamentos:["vestland","tessenor","khazyr","makuria","aurelia"],
+  transporte:["vestland","khazyr","aurelia","solenia","norterra"],
+  agua:["solenia","norterra","aurelia","vestland"],
+  ciber:["tessenor","khazyr","vestland","boravia"],
+  fiscal:["vestland","khazyr","aurelia","tessenor","cindara"],
+  judiciario:["vestland","aurelia","cindara","khazyr","tessenor"],
+  educacao:["vestland","tessenor","khazyr","aurelia","makuria"],
+  empresas:["vestland","khazyr","tessenor","aurelia","cindara"],
+  moeda:["vestland","khazyr","cindara","aurelia"],
+  fronteira:["solenia","norterra"],
+  pesca:["solenia","norterra","aurelia","cindara","khazyr"],
+  aviacao:["vestland","khazyr","tessenor","aurelia","solenia"],
+  tecnologia:["tessenor","vestland","khazyr","aurelia"]
+};
 function gerarEventosDilemasNovos(){
-  return DILEMAS_NOVOS.flatMap(d=>EVENT_COUNTRIES.map(c=>({
+  return DILEMAS_NOVOS.flatMap(d=>EVENT_COUNTRIES.filter(c=>(PAISES_POR_MODO[d.mode]||[]).includes(c.id)).map(c=>({
     id:`evn_${d.id}_${c.id}`,tab:d.tab,titulo:d.titulo(c),texto:d.texto(c),condicao:()=>true,peso:()=>d.peso,opcoes:opcoesDilemaNovo(d.mode,c.id)
   })));
 }
@@ -3879,10 +4062,11 @@ const INICIATIVAS = [
     custoTesouro: 0, recarga: 4,
     requisito: null,
     efeito: (s) => {
-      const antes = Object.keys(s.spend).reduce((a,k)=>a+s.spend[k],0);
+      const custoDespesa = () => Object.keys(PESOS_ORCAMENTO).reduce((a,k)=>a+PESOS_ORCAMENTO[k]*((s.spend[k] ?? 50)/50),0)*(s.pib/1000);
+      const antes = custoDespesa();
       Object.keys(s.spend).forEach(k => { if (k !== "previdencia") s.spend[k] = Math.max(0, s.spend[k] - 8); });
-      const depois = Object.keys(s.spend).reduce((a,k)=>a+s.spend[k],0);
-      const economizado = Math.max(0, (antes-depois) / 50 * (s.pib/1000));
+      const depois = custoDespesa();
+      const economizado = Math.max(0, antes-depois);
       s.aprovacao -= 3; s.tensaoSocial += 3;
       return `O ajuste corta despesa discricionária em cerca de ${fmtMoedaG(economizado)} por trimestre, mas pesa sobre a popularidade do governo.`;
     }
@@ -4116,81 +4300,6 @@ const INICIATIVAS = [
     custoTesouro: 3, recarga: 2,
     requisito: null,
     efeito: (s) => { s.congresso = clampG(s.congresso + 4, 0, 100); s.climaCongresso = clampG(s.climaCongresso + 6, 0, 100); return "A sessão extraordinária destrava pautas represadas e melhora substancialmente o clima de cooperação."; }
-  },
-
-  // ---------------------------------------------------------- CONGRESSO — instrumentos com thresholds e climas distintos
-  {
-    id:"in_frente_ampla_social", tab:"congresso", nome:"Pacto Social de Emergência",
-    desc:"Negocia uma frente temporária entre governo, sindicatos e partidos moderados para aprovar medidas de renda e serviços públicos durante uma crise de custo de vida.",
-    custoTesouro:14,recarga:6,congressoMin:46,climaMin:55,threshold:0.50,
-    requisito:(s)=>(s.pobreza<24?"O pacto só pode ser usado como resposta a uma pressão social relevante (pobreza ≥ 24%).":null),
-    efeito:(s)=>{s.tensaoSocial-=7;s.pobreza-=1.2;s.congresso=clampG(s.congresso+2,0,100);s.climaCongresso=clampG(s.climaCongresso+3,0,100);agendarEfeito(s,2,"Revisão do pacto social",st=>{st.saldoPrimario-=2;return "A segunda etapa do pacto social entra no orçamento e exige recursos permanentes.";});return "Uma maioria transversal aprova o pacote social, mas cria uma nova obrigação fiscal."; }
-  },
-  {
-    id:"in_orcamento_base_zero", tab:"congresso", nome:"Orçamento Base Zero",
-    desc:"Reabre programas de baixo desempenho e exige justificativa para cada grande despesa discricionária.",
-    custoTesouro:0,recarga:5,congressoMin:48,climaMin:48,threshold:0.52,
-    efeito:(s)=>{s.eficienciaFiscal=clampG(s.eficienciaFiscal+0.06,0.75,1.35);s.saldoPrimario+=1.5;s.climaCongresso-=2;s.tensaoSocial+=2;return "O Congresso aceita reexaminar despesas antigas; a eficiência fiscal melhora, mas grupos atingidos reagem."; }
-  },
-  {
-    id:"in_plano_infra_nacional", tab:"congresso", nome:"Plano Nacional de Infraestrutura",
-    desc:"Autoriza um pacote plurianual de infraestrutura com regras de execução, metas regionais e avaliação de produtividade.",
-    custoTesouro:20,recarga:7,congressoMin:45,climaMin:50,threshold:0.55,
-    efeito:(s)=>{s.investimento+=2;s.mobilidade+=3;s.saneamento+=2;s.dividaPIB+=1.0;s.climaCongresso+=2;agendarEfeito(s,4,"Primeira entrega do plano de infraestrutura",st=>{st.produtividade+=2;st.crescimento+=0.4;return "As primeiras obras entregues elevam produtividade e reduzem gargalos logísticos.";});return "O Congresso aprova o plano plurianual, com desembolso inicial e compromissos futuros."; }
-  },
-  {
-    id:"in_marco_digital", tab:"congresso", nome:"Marco Nacional de Dados e Cibersegurança",
-    desc:"Cria padrões de proteção de dados, resposta a incidentes e interoperabilidade digital para Estado e empresas.",
-    custoTesouro:8,recarga:5,congressoMin:42,climaMin:44,threshold:0.48,
-    efeito:(s)=>{s.acessoDigital+=3;s.confiancaInstitucional+=3;s.produtividade+=0.6;s.climaCongresso+=3;return "O novo marco digital melhora segurança e interoperabilidade, com custo inicial moderado."; }
-  },
-  {
-    id:"in_reforma_federal", tab:"congresso", nome:"Pacto de Transferências Federativas",
-    desc:"Redefine critérios de transferências para províncias e vincula parte dos repasses a metas de saneamento, educação e equilíbrio fiscal.",
-    custoTesouro:8,recarga:8,congressoMin:50,climaMin:58,threshold:0.60,
-    efeito:(s)=>{s.descontentamentoRegional-=9;s.saneamento+=2;s.educacao+=1;s.climaCongresso-=3;s.congresso-=2;agendarEfeito(s,5,"Metas federativas",st=>{st.saldoPrimario+=1;st.confiancaInstitucional+=2;return "As metas federativas começam a gerar economia e melhorar a execução regional.";});return "O novo pacto redistribui recursos em troca de metas mensuráveis; regiões afetadas começam a cobrar resultados."; }
-  },
-  {
-    id:"in_comissao_inquerito", tab:"congresso", nome:"Comissão Parlamentar de Fiscalização",
-    desc:"Cria uma investigação ampla sobre contratos, gastos e possíveis conflitos de interesse no Executivo e em estatais.",
-    custoTesouro:2,recarga:4,congressoMin:34,climaMin:20,threshold:0.40,
-    efeito:(s)=>{s.confiancaInstitucional+=4;s.corrupcao=Math.max(0,s.corrupcao-1.0);s.climaCongresso-=7;s.riscoImpeachment+=2;return "A comissão amplia a fiscalização e recupera confiança institucional, mas transforma aliados e opositores em adversários mais duros."; }
-  },
-  {
-    id:"in_leilao_concessoes", tab:"congresso", nome:"Programa de Concessões e PPPs",
-    desc:"Autoriza concessões de infraestrutura com metas de investimento, cláusulas de revisão e mecanismos de compartilhamento de risco.",
-    custoTesouro:4,recarga:6,congressoMin:43,climaMin:43,threshold:0.50,
-    efeito:(s)=>{s.confiancaEmpresarial+=5;s.investimento+=1.5;creditarTesouro(s, 10);s.corrupcao+=0.3;s.congresso+=1;agendarEfeito(s,3,"Investimento das concessões",st=>{st.produtividade+=1.4;st.mobilidade+=1.5;return "As primeiras concessões começam a investir, reduzindo gargalos de infraestrutura.";});return "O programa atrai capital privado e melhora a capacidade de investimento sem grande desembolso inicial."; }
-  },
-  {
-    id:"in_reforma_trabalhista", tab:"congresso", nome:"Reforma de Relações de Trabalho",
-    desc:"Reorganiza contratos, formação profissional, negociação coletiva e mecanismos de transição para setores automatizados.",
-    custoTesouro:5,recarga:8,congressoMin:52,climaMin:62,threshold:0.62,
-    efeito:(s)=>{s.empregoFormal+=2;s.qualidadeTrabalho+=3;s.produtividade+=1;s.congresso-=4;s.climaCongresso-=5;s.tensaoSocial+=2;agendarEfeito(s,5,"Requalificação pós-reforma trabalhista",st=>{st.desemprego-=0.5;st.produtividade+=1;return "A formação profissional vinculada à reforma começa a reduzir o desemprego estrutural.";});return "Uma coalizão ampla aprova a reforma, com ganhos potenciais de produtividade e forte custo de negociação."; }
-  },
-  {
-    id:"in_reforma_segurança", tab:"congresso", nome:"Sistema Integrado de Segurança Pública",
-    desc:"Integra dados policiais, perícia, prevenção e metas de redução de crime entre União e províncias.",
-    custoTesouro:10,recarga:5,congressoMin:44,climaMin:46,threshold:0.50,
-    efeito:(s)=>{s.seguranca+=4;s.crime-=4;s.acessoDigital+=1;s.congresso+=2;s.climaCongresso+=2;return "O sistema integrado melhora coordenação policial e reduz parte da criminalidade gradualmente."; }
-  },
-  {
-    id:"in_regra_responsabilidade", tab:"congresso", nome:"Regra de Responsabilidade Fiscal Plurianual",
-    desc:"Cria metas de dívida, gasto e resultado primário com cláusulas de escape para recessões e desastres.",
-    custoTesouro:0,recarga:10,congressoMin:55,climaMin:60,threshold:0.66,
-    efeito:(s)=>{s.mercado.confianca+=6;s.dividaPIB-=1.2;s.taxaJuros-=0.25;s.climaCongresso-=2;agendarEfeito(s,6,"Âncora fiscal plurianual",st=>{st.dividaPIB-=3;st.confiancaEmpresarial+=3;return "A regra fiscal passa a reduzir o prêmio de risco e melhora a previsibilidade das contas públicas.";});return "Uma supermaioria aprova a âncora fiscal; o custo político é alto, mas a previsibilidade melhora."; }
-  },
-  {
-    id:"in_pacto_energia", tab:"congresso", nome:"Pacto de Segurança Energética",
-    desc:"Cria reservas estratégicas, metas de transmissão e uma regra especial para acelerar investimentos em geração.",
-    custoTesouro:17,recarga:7,congressoMin:47,climaMin:52,threshold:0.56,
-    efeito:(s)=>{s.pressaoCambial-=5;s.investimento+=1.3;s.confiancaEmpresarial+=2;s.congresso+=1;agendarEfeito(s,4,"Expansão da capacidade energética",st=>{st.produtividade+=1.6;st.crescimento+=0.3;return "Os projetos energéticos entram em operação e reduzem o risco de novos apagões.";});return "O Congresso aprova uma política de segurança energética com investimentos e reservas estratégicas."; }
-  },
-  {
-    id:"in_reforma_saude_congresso", tab:"congresso", nome:"Pacto Nacional de Saúde",
-    desc:"Vincula transferências à atenção primária, saneamento hospitalar, vacinação e indicadores de mortalidade.",
-    custoTesouro:16,recarga:7,congressoMin:48,climaMin:54,threshold:0.58,
-    efeito:(s)=>{s.saude+=4;s.saneamento+=2;s.mortalidadeInfantil-=0.8;s.dividaPIB+=0.8;s.climaCongresso+=1;agendarEfeito(s,5,"Resultados do Pacto de Saúde",st=>{st.saude+=2;st.mortalidadeInfantil-=0.5;return "A melhora da atenção primária começa a aparecer nos indicadores de saúde.";});return "Uma maioria transversal aprova um pacto de saúde com metas de resultado e financiamento plurianual."; }
   },
 
   // ---------------------------------------------------------- MERCADOS
@@ -4453,6 +4562,7 @@ function continuarCampanhaSalva() {
     if (JSON.stringify(chavesRestauradas) !== JSON.stringify((envelope.stateKeys || []).slice().sort())) throw new Error("A verificação de integridade das variáveis do estado falhou.");
     if (!PARTIES.some(p => p.id === restaurado.partyId)) throw new Error("O partido deste salvamento não existe nesta versão.");
     state = restaurado;
+    instalarEstoquesFinanceiros(state);
     state.nomeCampanha = String(state.nomeCampanha ?? envelope.campaignName ?? "Campanha sem nome");
     _seqMinistro = Math.max(1, Number(envelope.sequenceMinister) || 1);
     STRICT_TREASURY_MODE = false; // nunca restaurar um modo interno de sondagem como se fosse estado de jogo.
@@ -4580,6 +4690,11 @@ function normalizarEstado(s, contexto = "") {
   if (!Array.isArray(s.pendentes)) s.pendentes = [];
   if (!Array.isArray(s.eventosAdiados)) s.eventosAdiados = [];
   const fix = {};
+  const partidoDoEstado = PARTIES.find(p => p.id === Number(s.partyId));
+  if (!Number.isFinite(Number(s.corrupcaoBase))) s.corrupcaoBase = partidoDoEstado ? partidoDoEstado.mods.corrupt : 0;
+  s.corrupcaoBase = clampN(Number(s.corrupcaoBase) || 0, 0, 20);
+  if (!Number.isFinite(Number(s.indiceGuerraBase))) s.indiceGuerraBase = partidoDoEstado ? partidoDoEstado.perfil.viésGuerra : 0;
+  s.indiceGuerraBase = clampN(Number(s.indiceGuerraBase) || 0, -0.25, 0.25);
   const bounded = (key, min, max) => {
     const before = Number(s[key]);
     if (!Number.isFinite(before)) { s[key] = min; fix[key] = `${before}→${min}`; return; }
@@ -4608,11 +4723,12 @@ function normalizarEstado(s, contexto = "") {
 
   nonneg("tesouro"); nonneg("dividaPublicaNominal"); nonneg("dividaExternaEstoque");
   if (!Number.isFinite(s.pib) || s.pib < 50) s.pib = 50;
+  if (!Number.isFinite(s.deflatorPIB) || s.deflatorPIB <= 0) s.deflatorPIB = 1;
   if (!Number.isFinite(s.dividaPublicaNominal)) s.dividaPublicaNominal = 0;
 
   if (s.relacoes) Object.keys(s.relacoes).forEach(k => { s.relacoes[k] = clampN(Number(s.relacoes[k]) || 0, 0, 100); });
   ["transparencia","credibilidade","alcance","imprensa","respostaCrise","fadiga","rumores"].forEach(k=>{ if(s.rp) s.rp[k]=clampN(Number(s.rp[k])||0,0,100); });
-  if (s.mercado) { s.mercado.confianca=clampN(Number(s.mercado.confianca)||0,0,100); s.mercado.bolsa=Math.max(50,Number(s.mercado.bolsa)||50); s.mercado.bolsaAnterior=Math.max(50,Number(s.mercado.bolsaAnterior)||50); s.mercado.spread=clampN(Number(s.mercado.spread)||0.3,0.02,2.5); s.mercado.taxaBasica=clampN(Number(s.mercado.taxaBasica)||3,1.5,30); }
+  if (s.mercado) { s.mercado.confianca=clampN(Number(s.mercado.confianca)||0,0,100); s.mercado.bolsa=Math.max(50,Number(s.mercado.bolsa)||50); s.mercado.bolsaAnterior=Math.max(50,Number(s.mercado.bolsaAnterior)||50); s.mercado.spread=clampN(Number(s.mercado.spread)||0.8,0.02,9); s.mercado.taxaBasica=clampN(Number(s.mercado.taxaBasica)||3,1.5,30); }
   if (s.defesa) {
     s.defesa.prontidao=clampN(Number(s.defesa.prontidao)||0,0,100);
     if(s.defesa.tensao) Object.keys(s.defesa.tensao).forEach(k=>s.defesa.tensao[k]=clampN(Number(s.defesa.tensao[k])||0,0,100));
@@ -4733,19 +4849,22 @@ function novoEstado(party) {
     campanhaCriadaEm: new Date().toISOString(),
     nomeCampanha: String(campanhaNomeRascunho || "Campanha de Darmondia"),
     partyId: party.id,
+    corrupcaoBase: party.mods.corrupt,
+    indiceGuerraBase: party.perfil.viésGuerra,
     q_total: 1, ano: 1, trimestre: 1, mandato: 1,
     quartersNoMandato: 0,
     jogoAtivo: true,
 
     // finanças — painel macro ampliado
     pib: 1000,
+    deflatorPIB: 1,
     crescimento: 1.2 + party.mods.growth + party.perfil.viésCrescimento,
     inflacao: 3.5 + party.mods.infl,
     inflacaoVolatilidade: 1,
     desemprego: 8.5,
     dividaPIB: 58,
     dividaExternaPIB: 28,
-    taxaJuros: 6.0,
+    taxaJuros: 6.8,
     cambio: 1.0,
     reservas: 260,
     tesouro: 120,
@@ -5033,6 +5152,8 @@ function simularTrimestre(s, party) {
     const volatilidadeInflacao = clampN(s.inflacaoVolatilidade || 1, 0.35, 1.5);
     let inflacao = s.inflacao * 0.52 + 1.55 + pressaoFiscal + efeitoJuros + efeitoCambio + party.mods.infl * 0.45 + rand(-0.32, 0.32) * volatilidadeInflacao;
     s.inflacao = clampN(inflacao, -1, 70);
+    const deflatorTri = Math.pow(1 + Math.max(-1, s.inflacao) / 100, 0.25);
+    s.pib = Math.max(50, s.pib * deflatorTri); s.deflatorPIB = (Number(s.deflatorPIB) || 1) * deflatorTri;
 
     s.pressaoCambial = clampN(
       s.pressaoCambial +
@@ -5549,7 +5670,7 @@ function processarAmortizacoesExternas(s) {
   if (!Array.isArray(s.emprestimosExternos) || !s.emprestimosExternos.length) return 0;
   let total = 0;
   s.emprestimosExternos.forEach((l) => {
-    if (l.saldo <= 1e-9 || s.q_total <= l.trimestre) return;
+    if (l.saldo <= 1e-9 || s.q_total < l.trimestre) return;
     const amort = Math.min(l.saldo, l.amortizacaoTri || 0, Math.max(0, (Number(l.principal)||0) - (Number(l.amortizacoesRealizadas)||0)));
     if (amort <= 1e-9) return;
     const saldoAntes = l.saldo;
@@ -5842,7 +5963,7 @@ function avancarTrimestre() {
     return realizarEleicao(state, party);
   }
 
-  return { ok: true, msg: `Trimestre ${state.trimestre}/${state.ano} — ${MESES_TRIMESTRE[state.trimestre - 1]}.` };
+  return { ok: true, msg: `Ano ${state.ano}, trimestre ${state.trimestre} — ${MESES_TRIMESTRE[state.trimestre - 1]}.` };
 }
 
 function checarCrisesExtremas(s) {
@@ -5879,7 +6000,7 @@ function checarImpeachment(s) {
 
 function capturarBaselineMandato(s) {
   return {
-    pib:s.pib, crescimento:s.crescimento, inflacao:s.inflacao, desemprego:s.desemprego,
+    pib:s.pib, deflator:(s.deflatorPIB||1), crescimento:s.crescimento, inflacao:s.inflacao, desemprego:s.desemprego,
     dividaPIB:s.dividaPIB, saude:s.saude, educacao:s.educacao, seguranca:s.seguranca,
     pobreza:s.pobreza, tensaoSocial:s.tensaoSocial, confiancaInstitucional:s.confiancaInstitucional,
     corrupcao:s.corrupcao, aprovacao:s.aprovacao, desigualdade:s.desigualdade
@@ -5887,7 +6008,7 @@ function capturarBaselineMandato(s) {
 }
 function desempenhoDoMandato(s) {
   const b = s.baselineMandato || capturarBaselineMandato(s);
-  const crescimentoAcumulado = Math.log(Math.max(1, s.pib) / Math.max(1, b.pib)) * 18;
+  const crescimentoAcumulado = Math.log(Math.max(1, s.pib/(s.deflatorPIB||1)) / Math.max(1, b.pib/(b.deflator||1))) * 18;
   const pontos =
     ((s.saude - b.saude) * 0.24) + ((s.educacao - b.educacao) * 0.24) +
     ((s.seguranca - b.seguranca) * 0.18) - ((s.pobreza - b.pobreza) * 0.72) -
@@ -5908,7 +6029,7 @@ function registrarEsforcoEleitoral(s, iniciativaId, resultado) {
   } else if (iniciativaId === "in_propaganda") {
     c.comunicacao = clampN(c.comunicacao + 22, 0, 100);
   } else if (iniciativaId === "in_campanha_comunicacao") {
-    if (r.includes("público desconfiado") || r.includes("público desconfiado")) return;
+    if (r.includes("público desconfiado")) return;
     c.comunicacao = clampN(c.comunicacao + 20, 0, 100);
   } else if (iniciativaId === "in_escuta_publica") {
     c.territorial = clampN(c.territorial + 22, 0, 100);
@@ -6351,14 +6472,14 @@ LEIS.forEach(lei => { lei.custoTesouro = Math.max(8, Number(lei.custoTesouro) ||
 
 /* ============================================================ 3) MERCADOS FINANCEIROS */
 function inicializarMercado(s) {
-  s.mercado = { bolsa: 1000, bolsaAnterior: 1000, confianca: 55, rating: "BB", spread: 0.3, taxaBasica: 6.0 };
+  s.mercado = { bolsa: 1000, bolsaAnterior: 1000, confianca: 55, rating: "BB", spread: 0.8, taxaBasica: 6.0 };
 }
-// Benchmark estrutural pedido: +0,2% de crescimento por trimestre + 0,3 p.p. de spread = BB.
+// Benchmark estrutural: +0,2% de crescimento por trimestre + 0,8 p.p. de spread = BB.
 const FAIXAS_RATING = [
-  { min: 88, grade: "AAA", spread: 0.02 }, { min: 76, grade: "AA", spread: 0.05 },
-  { min: 64, grade: "A", spread: 0.10 }, { min: 56, grade: "BBB", spread: 0.18 },
-  { min: 44, grade: "BB", spread: 0.30 }, { min: 32, grade: "B", spread: 0.55 },
-  { min: 18, grade: "CCC", spread: 1.20 }, { min: 0, grade: "D", spread: 2.50 }
+  { min: 88, grade: "AAA", spread: 0.05 }, { min: 76, grade: "AA", spread: 0.12 },
+  { min: 64, grade: "A", spread: 0.25 }, { min: 56, grade: "BBB", spread: 0.45 },
+  { min: 44, grade: "BB", spread: 0.80 }, { min: 32, grade: "B", spread: 1.50 },
+  { min: 18, grade: "CCC", spread: 3.00 }, { min: 0, grade: "D", spread: 5.00 }
 ];
 function calcularRating(s) {
   let score = 50;
@@ -6384,7 +6505,7 @@ function simularMercados(s) {
 
   const r = calcularRating(s);
   s.mercado.rating = r.grade;
-  s.mercado.spread = r.spread;
+  s.mercado.spread = clampN(r.spread + clampN(Math.max(0, s.dividaPIB - 70) * 0.012, 0, 2), 0.02, 9);
 
   const respFactor = s.bcIndependente ? 0.85 : 0.6;
   const alvoTaxaBasica = clampN(3 + Math.max(0, s.inflacao - 4) * respFactor - Math.max(0, -s.crescimento) * 0.5, 1.5, 25);
@@ -6417,8 +6538,11 @@ const ADVERSARIOS = Object.keys(PERFIS_AMEACA);
 
 function inicializarDefesa(s) {
   const tensao = {};
+  const perfilPartidario = PARTIES.find(p => p.id === Number(s.partyId));
+  const indiceGuerra = Number(s.indiceGuerraBase ?? perfilPartidario?.perfil?.viésGuerra ?? 0) || 0;
   ADVERSARIOS.forEach((cid) => {
-    tensao[cid] = clampN((100 - s.relacoes[cid]) * 0.42 + PERFIS_AMEACA[cid].agr * 0.22 + 4, 5, 100);
+    // O viés partidário faz parte da tensão inicial, sem fixar por si só uma guerra.
+    tensao[cid] = clampN((100 - s.relacoes[cid]) * 0.42 + PERFIS_AMEACA[cid].agr * 0.22 + 4 + indiceGuerra * 20, 5, 100);
   });
   s.defesa = {
     prontidao: 40, moral: 58, suprimentos: 52, industriaBelica: 28, ciberdefesa: 36, inteligencia: 34, escudoAereo: 20,
@@ -6433,6 +6557,10 @@ function inicializarDefesa(s) {
 }
 
 /* ---------- Hostilidade e probabilidade de conflito ---------- */
+function viesGuerraPartidario(s, party) {
+  const raw = party?.perfil?.viésGuerra ?? s?.indiceGuerraBase ?? 0;
+  return clampN(Number(raw) || 0, -0.25, 0.25);
+}
 function hostilidadeEfetiva(s, cid, party) {
   const p = PERFIS_AMEACA[cid]; if (!p) return 0;
   const d = s.defesa;
@@ -6452,6 +6580,7 @@ function hostilidadeEfetiva(s, cid, party) {
   if (m.intlAlign === "oci" && (cid === "khazyr" || cid === "boravia")) h += 9;
   if (m.intlAlign === "isol") h += 5;
   h += m.secBias * 1.5;
+  h += viesGuerraPartidario(s, party) * 35; // postura partidária altera a pressão hostil ao longo do jogo
   if ((d.tregua[cid] || 0) > s.q_total) h -= 15;
   return clampN(h, 0, 100);
 }
@@ -7003,51 +7132,60 @@ let abaAtiva = "escritorio";
 let partidoFiltro = "todos";
 
 /* -------------------------------------------------- CLASSIFICAÇÃO DE ESPECTRO (para filtro) -------------------------------------------------- */
-function espectroPartido(p) {
-  const l = p.linha.toLowerCase();
-  if (l.includes("extrema esquerda")) return "Extrema-esquerda";
-  if (l.includes("extrema direita")) return "Extrema-direita";
-  if (l.includes("centro-esquerda")) return "Centro-esquerda";
-  if (l.includes("centro-direita")) return "Centro-direita";
-  if (l.includes("esquerda")) return "Esquerda";
-  if (l.includes("direita")) return "Direita";
-  if (l.includes("centro")) return "Centro";
-  return "Outro";
+function espectroPartido(p) { return categoriaEixoPartido(p); }
+const ORDEM_ESPECTRO = ["Todos", "Extrema-esquerda", "Esquerda", "Centro-esquerda", "Centro", "Centro-direita", "Direita", "Extrema-direita"];
+function normalizarBuscaPartido(value) {
+  return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
 }
-const ORDEM_ESPECTRO = ["Todos", "Extrema-esquerda", "Esquerda", "Centro-esquerda", "Centro", "Centro-direita", "Direita", "Extrema-direita", "Outro"];
-
-/* -------------------------------------------------- TELA DE SELEÇÃO -------------------------------------------------- */
+function renderResumoEspectroPartidos() {
+  const el = document.getElementById("resumo-espectro-partidos");
+  if (!el) return;
+  const esquerda = PARTIES.filter(p => Number(p.eixoEsquerdaDireita) <= 44).length;
+  const centro = PARTIES.filter(p => Number(p.eixoEsquerdaDireita) >= 45 && Number(p.eixoEsquerdaDireita) <= 56).length;
+  const direita = PARTIES.filter(p => Number(p.eixoEsquerdaDireita) >= 57).length;
+  el.innerHTML = `<strong>${PARTIES.length} partidos jogáveis</strong><div class="resumo-espectro-numeros"><span><b>${esquerda}</b> à esquerda</span><span><b>${centro}</b> ao centro</span><span><b>${direita}</b> à direita</span></div><p>O eixo resume orientação econômica e institucional de esquerda a direita. Ecologia, liberdades civis, regionalismo, diplomacia e postura militar continuam representados por indicadores separados.</p>`;
+}
 function renderFiltros() {
   const box = document.getElementById("filtros-partido");
   box.innerHTML = ORDEM_ESPECTRO.map((f) => {
     const key = f === "Todos" ? "todos" : f;
     const ativo = partidoFiltro === key ? "ativo" : "";
-    return `<button class="filtro-chip ${ativo}" data-filtro="${key}">${f}</button>`;
+    return `<button type="button" class="filtro-chip ${ativo}" data-filtro="${key}">${f}</button>`;
   }).join("");
+  renderResumoEspectroPartidos();
   box.querySelectorAll(".filtro-chip").forEach((btn) => {
     btn.addEventListener("click", () => { partidoFiltro = btn.dataset.filtro; renderFiltros(); renderGradePartidos(); });
   });
 }
-
 function renderGradePartidos() {
   const grid = document.getElementById("grade-partidos");
-  const busca = (document.getElementById("busca-partido").value || "").toLowerCase();
+  const result = document.getElementById("resultado-partidos");
+  const busca = normalizarBuscaPartido(document.getElementById("busca-partido")?.value || "");
   const lista = PARTIES.filter((p) => {
     const passaFiltro = partidoFiltro === "todos" || espectroPartido(p) === partidoFiltro;
-    const passaBusca = !busca || p.nome.toLowerCase().includes(busca) || p.sigla.toLowerCase().includes(busca) || p.desc.toLowerCase().includes(busca);
-    return passaFiltro && passaBusca;
+    const corpus = normalizarBuscaPartido([p.nome,p.sigla,p.linha,p.desc,p.tagsPesquisa,p.perfil?.baseSocial,p.perfil?.economia,p.perfil?.doutrina,p.perfil?.congresso,...Object.values(p.mods||{}).flatMap(v=>v&&typeof v==="object"?Object.values(v):[v]),...Object.values(p.perfil||{})].join(" "));
+    return passaFiltro && (!busca || corpus.includes(busca));
   });
-  grid.innerHTML = lista.map((p) => `
-    <button class="cartao-partido" style="--cor-partido:${p.cor}" data-party="${p.id}" aria-label="Escolher ${p.nome}">
-      <div class="linha-topo"><span class="sigla">${p.sigla}</span></div>
-      <div class="linha-ideologia">${p.linha}</div>
-      <div class="nome-completo">${p.nome}</div>
-      <div class="desc-partido">${p.desc}</div>
-      <div class="tag-corrupcao" title="Índice de corrupção de base">⚠ ${p.mods.corrupt}/10</div>
-    </button>
-  `).join("") || `<div class="sem-pendentes" style="grid-column:1/-1">Nenhum partido encontrado para este filtro.</div>`;
-  grid.querySelectorAll(".cartao-partido").forEach((el) => {
-    el.addEventListener("click", () => iniciarPartida(parseInt(el.dataset.party, 10)));
+  if (result) result.textContent = `${lista.length} de ${PARTIES.length} partidos · ${partidoFiltro === "todos" ? "todas as posições" : partidoFiltro}`;
+  grid.innerHTML = lista.map((p) => {
+    const dificuldade = dificuldadePartido(p);
+    const axis = Number(p.eixoEsquerdaDireita);
+    return `<article class="cartao-partido" style="--cor-partido:${p.cor};--cor-partido-texto:${textoContrastePara(p.cor, '#121d2d')}" data-party="${p.id}">
+      <div class="partido-card-cabecalho"><span class="sigla">${escaparHtmlEnciclopedia(p.sigla)}</span><span class="partido-eixo-pill">${axis}/100 · ${escaparHtmlEnciclopedia(espectroPartido(p))}</span></div>
+      <div class="linha-ideologia">${escaparHtmlEnciclopedia(p.linha)}</div>
+      <div class="nome-completo">${escaparHtmlEnciclopedia(p.nome)}</div>
+      <div class="desc-partido">${escaparHtmlEnciclopedia(p.desc)}</div>
+      <div class="partido-metricas-principais">
+        <span><small>Corrupção inicial</small><b>${fmt(p.mods.corrupt,1)}/20</b></span>
+        <span><small>Postura de guerra</small><b>${formatarSinal(p.perfil.viésGuerra)}</b></span>
+        <span><small>Dificuldade estimada</small><b>${fmt(dificuldade,1)}/10 · ${faixaDificuldadePartido(dificuldade)}</b></span>
+      </div>
+      <details class="detalhes-base-partido"><summary>Ver todos os indicadores-base</summary>${renderIndicadoresBasePartido(p)}</details>
+      <button type="button" class="btn btn-primario partido-escolher" data-escolher-partido="${p.id}">Escolher este partido <span aria-hidden="true">→</span></button>
+    </article>`;
+  }).join("") || `<div class="sem-pendentes" style="grid-column:1/-1">Nenhum partido corresponde à busca e ao eixo selecionado.</div>`;
+  grid.querySelectorAll("[data-escolher-partido]").forEach((el) => {
+    el.addEventListener("click", () => iniciarPartida(parseInt(el.dataset.escolherPartido, 10)));
   });
 }
 
@@ -7075,7 +7213,6 @@ function aplicarCoresPartido(cor) {
   root.style.setProperty("--accent", cor);
   root.style.setProperty("--accent-dim", cor + "55");
   root.style.setProperty("--accent-text", textoContrastePara(cor, "#121823"));
-  root.style.setProperty("--accent-text-light", textoContrastePara(cor, "#eef0f2"));
   root.style.setProperty("--accent-contrast", razaoContrasteHex("#ffffff", cor) >= razaoContrasteHex("#14181f", cor) ? "#ffffff" : "#14181f");
 }
 
@@ -7138,7 +7275,7 @@ const ENCYCLOPEDIA_ARTIGOS = [
   + (imprensa - 50) * 0.040
   + (alcance - 50) * 0.040
   - (expectativaPopular - aprovacao) * 0.16</code></pre><p>Os cinco termos de relações públicas têm referência neutra 50/100. Transparência e credibilidade elevam o alvo quando os dados são abertos e confiáveis; a resposta a crises, a relação com a imprensa e o alcance melhoram a capacidade pública de conter danos e transmitir informações. Os pesos explícitos são 0,055, 0,075, 0,050, 0,040 e 0,040, respectivamente.</p><p>Referências adicionais de mercado: rating soberano <strong>BBB</strong>; confiança do investidor <strong>56/100</strong>; crescimento trimestral da bolsa <strong>+1,0%</strong>. A nota soberana é convertida numa escala ordinal ascendente D, CCC, B, BB, BBB, A, AA, AAA; cada degrau representa 1 ponto bruto no score. O crescimento da bolsa compara o índice corrente com o índice do trimestre anterior. Valores de mercado abaixo dessas referências pressionam o score.</p><p>Os valores de referência são neutros: acima deles o termo aumenta o score quando o sinal é positivo e abaixo dele o reduz; os indicadores precedidos de sinal negativo se comportam ao contrário. Todos os desvios da fórmula principal são lineares, sem bônus oculto por sinal. O alvo final é limitado a 0–100.</p></details><p>A atualização trimestral é <code>aprovação + 0,44 × (alvo − aprovação) + 0,35 × bônus temporário + ruído uniforme de −1,2 a +1,2</code>, limitada ao intervalo válido. A convergência ao alvo é mais rápida do que antes; a incerteza aleatória foi reduzida para que os resultados concretos tenham mais peso. A cobrança é simétrica por indicador em torno das referências: o mesmo desvio em sentidos opostos tem impacto bruto de mesma magnitude, mas os indicadores ruins podem acumular efeitos entre si.</p><p>O Diário de Governo registra scorePopular, alvo e delta macro trimestral para tornar a evolução auditável. Os grupos eleitorais também respondem mais fortemente aos fatores relevantes para cada segmento: custo de vida e mercado de trabalho para trabalhadores, educação/emprego para jovens, segurança alimentar e mobilidade para áreas rurais, crime/inflação para áreas urbanas e tributação/endividamento/confiança empresarial para elites. A aprovação influencia apoio parlamentar, clima político, risco institucional e eleição, mas ganhos de comunicação temporários não substituem a manutenção dos indicadores.</p>`},
-{categoria:"Economia",titulo:"PIB, crescimento, inflação e mercado de trabalho",tags:"macro pib crescimento inflação desemprego salários produtividade investimento",html:`<p>O PIB é um estoque nominal monetário; crescimento é uma taxa trimestral. Crescimento atualiza o PIB por <code>PIB × (1 + crescimento/100)</code>. O motor deriva o crescimento de investimento, produtividade, gasto de infraestrutura, tributação, inflação, tensão social, dívida elevada, relações externas e modificador partidário, além de ruído limitado.</p><p>A inflação é apresentada como taxa anual no painel, embora a transição macro use uma regra trimestral suavizada baseada na inflação anterior, pressão fiscal, juros, câmbio, perfil partidário e volatilidade. A taxa básica e a inflação são indicadores distintos; não se deve somar um ao outro.</p><p>Desemprego responde ao crescimento, à despesa em educação e infraestrutura, à criminalidade e a ruído. Salário real responde ao crescimento, desemprego, previdência e inflação. Produtividade responde ao investimento e à alocação em educação/infraestrutura, ao acesso digital e ao perfil de governo. Essas fórmulas têm limites de estado para evitar valores fora dos intervalos previstos.</p><p>Os valores derivam do modelo interno do jogo, não de um modelo econométrico externo calibrado. As projeções apresentadas são testes condicionais, não previsões garantidas.</p>`},
+{categoria:"Economia",titulo:"PIB, crescimento, inflação e mercado de trabalho",tags:"macro pib crescimento inflação desemprego salários produtividade investimento",html:`<p>O PIB é um estoque nominal monetário; crescimento é uma taxa real trimestral. Cada trimestre o PIB é atualizado por <code>PIB × (1 + crescimento/100)</code> e depois pelo deflator <code>(1 + inflação anual)^¼</code>, de modo que a inflação infla o PIB nominal e corrói a razão dívida/PIB. O desempenho do mandato usa o PIB deflacionado, então a inflação não é premiada como crescimento. O motor deriva o crescimento de investimento, produtividade, gasto de infraestrutura, tributação, inflação, tensão social, dívida elevada, relações externas e modificador partidário, além de ruído limitado.</p><p>A inflação é apresentada como taxa anual no painel, embora a transição macro use uma regra trimestral suavizada baseada na inflação anterior, pressão fiscal, juros, câmbio, perfil partidário e volatilidade. A taxa básica e a inflação são indicadores distintos; não se deve somar um ao outro.</p><p>Desemprego responde ao crescimento, à despesa em educação e infraestrutura, à criminalidade e a ruído. Salário real responde ao crescimento, desemprego, previdência e inflação. Produtividade responde ao investimento e à alocação em educação/infraestrutura, ao acesso digital e ao perfil de governo. Essas fórmulas têm limites de estado para evitar valores fora dos intervalos previstos.</p><p>Os valores derivam do modelo interno do jogo, não de um modelo econométrico externo calibrado. As projeções apresentadas são testes condicionais, não previsões garantidas.</p>`},
 {categoria:"Finanças",titulo:"Tesouro, receitas, despesa e caixa disponível",tags:"tesouro receita despesa saldo primário resultado fiscal juros orçamento financiamento caixa",html:`<p><strong>Tesouro</strong> é o caixa disponível agora; saldo primário e resultado fiscal são fluxos por trimestre. Ter um superávit projetado não significa que o dinheiro desse trimestre já esteja no caixa antes de o turno ser avançado.</p><p>O resultado primário é receita menos despesa primária programada; o resultado fiscal já desconta os juros nominais devidos. Conforme a alocação de superávit para dívida, parte do resultado pode ser usada em amortização. Um déficit esgotando caixa pode aumentar a dívida pelo mecanismo fiscal do motor.</p><p>Iniciativas com custo, opções de eventos e leis são testadas antes da execução. Se o caixa disponível for menor que o pagamento direto exigido, a ação é bloqueada integralmente: não paga parcialmente, não altera os efeitos e não cria dívida oculta. Efeitos futuros que incluam pagamentos também são pré-testados quando vencem; sem caixa suficiente, são cancelados como unidade e registrados no Diário.</p><p>Isso não significa que todo custo recorrente do simulador é bloqueado: serviço da dívida, custos de guerra, reparações e alguns eventos sistêmicos fazem parte do motor de transição e podem recorrer ao mecanismo de financiamento por dívida. A interface distingue ação discricionária de obrigação sistêmica.</p><p>Os controles tributários e orçamentários são as alíquotas e dotações por área. Mudá-los recalcula a estimativa fiscal antes do avanço. O custo efetivamente pago e as variações do caixa são registrados no Diário.</p>`},
 {categoria:"Finanças",titulo:"Dívida pública, juros nominais e juros reais",tags:"dívida dívidaPIB nominal real trimestral juros amortização estoque denominador",html:`<p>A dívida pública nominal é o estoque financeiro central; a razão dívida/PIB é derivada desse estoque dividido pelo PIB nominal atual. Quando o PIB muda, a razão pode mudar sem novo empréstimo ou amortização. Isso evita tratar estoque nominal e porcentagem como dois estoques independentes.</p><p>Os juros nominais são despesas do resultado fiscal. A taxa real equivalente é diagnóstica e não volta a ser adicionada ao estoque; somá-la novamente duplicaria encargos já pagos. A taxa real é calculada a partir da relação entre taxa nominal e inflação com equivalência anual/trimestral definida pelo motor.</p><p>A dívida muda através de déficits/financiamentos, amortizações, captações identificadas, pagamentos e evolução do PIB nominal. O painel de trajetória mecânica fixa os demais parâmetros para responder “o que aconteceria se os parâmetros se mantivessem iguais”; não incorpora eventos futuros desconhecidos, reações políticas, crise ou aleatoriedade.</p><p>A dívida externa bruta é parte do passivo público agregado. O estoque externo é atualizado por captações e amortizações rastreadas. A conta corrente é fluxo externo; não reduz nem aumenta diretamente o estoque da dívida externa bruta.</p>`},
 {categoria:"Social",titulo:"Indicadores sociais e mecanismos de transmissão",tags:"saúde educação segurança pobreza desigualdade crime saneamento moradia mortalidade segurança alimentar tensão social",html:`<p>O sistema social mantém indicadores de saúde, educação, segurança, desigualdade, tensão social, pobreza, emprego formal, saneamento, moradia, criminalidade, mortalidade infantil, segurança alimentar, qualidade do trabalho, greves, descontentamento regional, poluição, mobilidade e acesso digital.</p><p>Esses indicadores não são independentes. A despesa de saúde altera saúde; saúde e saneamento influenciam mortalidade infantil. Educação e acesso digital influenciam capital humano e produtividade. Segurança, desemprego e tensão social influenciam crime. Salário real, emprego, desigualdade e despesa previdenciária influenciam pobreza; desemprego, inflação, pobreza, crime, desigualdade, greves e salário real influenciam tensão social.</p><p>Os controles de despesa são entradas de política, e não resultados já garantidos. Por exemplo, elevar a dotação altera a força do mecanismo de transição, mas não transforma instantaneamente todos os indicadores. Iniciativas específicas podem acrescentar efeitos imediatos e efeitos futuros.</p><p>As escalas são misturadas: alguns dados são porcentagens, outros índices sem unidade monetária. Leia o rótulo de cada indicador; um valor de 60/100 não equivale a 60% do PIB.</p>`},
@@ -7150,10 +7287,10 @@ const ENCYCLOPEDIA_ARTIGOS = [
 {categoria:"Relações internacionais",titulo:"Relações bilaterais e ações diplomáticas",tags:"diplomacia países relação tratados comércio sanções aliança visita ONU pacto",html:`<p>Cada país tem relação bilateral de 0 a 100. A relação média entra no crescimento, nas contas externas, em efeitos ministeriais e na avaliação diplomática. Ações típicas incluem visita, ajuda, tratado comercial, sanções, aliança militar, pactos de não agressão e financiamentos, conforme elegibilidade e custo.</p><p>Tratados comerciais podem melhorar a abertura e a exposição comercial; sanções têm contrapartidas e podem aumentar hostilidade; alianças aumentam apoio diplomático/militar mas não são gratuitas em termos de relação. Algumas ações exigem relação mínima, país elegível, ausência de acordo duplicado, limite de recarga ou situação de crise específica.</p><p>O botão de uma ação com erro deve apresentar um modal imediato com o motivo real da falha. O texto do erro não altera o estado. A elegibilidade é revalidada no motor quando a ação é lançada, não apenas pela aparência do botão.</p>`},
 {categoria:"Relações internacionais",titulo:"Pacto de não agressão: elegibilidade e efeito",tags:"pacto não agressão vizinho fronteira adversário hostil risco guerra",html:`<p>O Pacto de Não Agressão pode ser oferecido a <strong>qualquer adversário registrado no sistema</strong>, não apenas a vizinhos terrestres. A ONU não é alvo elegível. Um pacto existente desativa o botão para aquele país; uma nova proposta tem custo de ₭D 4 bilhões e recarga de 8 trimestres.</p><p>Após aceitação simulada, a relação bilateral aumenta 10 pontos, a tensão do adversário diminui 20 pontos e a hostilidade efetiva e a probabilidade de conflito recebem redutores. O efeito sobre a tensão só ocorre quando o país possui entrada de tensão no sistema de defesa.</p><p>A iniciativa não encerra automaticamente uma guerra em curso nem substitui a resolução de decisões pendentes. Seus benefícios são mecânicos e específicos ao país que assinou.</p>`},
 {categoria:"Finanças externas",titulo:"Conta corrente, conta de capital e dívida externa",tags:"conta corrente conta capital fluxo capital reservas estoque dívida externa exportações importações",html:`<p>A conta corrente é um fluxo expresso em percentagem do PIB, derivado de balança comercial, renda primária e transferências. A conta de capital/fluxo de capital é outro fluxo relacionado à atratividade do mercado, relações externas, endividamento elevado e confiança empresarial.</p><p>Reservas respondem ao saldo externo e fluxos líquidos, com limites de estado. A dívida externa bruta é um <strong>estoque nominal</strong> e não é alterada diretamente pela conta corrente. Captação adiciona simultaneamente caixa, dívida pública nominal/razão dívida-PIB e dívida externa; amortização explícita reduz os estoques correspondentes.</p><p>Empréstimos registrados guardam credor, principal, saldo, taxa nominal contratada, prazo, amortização, data de contratação e condicionalidade. A contratação de programa do FMI pode ativar uma regra de austeridade durante vários trimestres. Cumprir/violar a regra afeta confiança, juros, aprovação temporária e estabilidade, de acordo com o tipo de programa.</p>`},
-{categoria:"Mercados",titulo:"Rating soberano, spread e confiança do mercado",tags:"rating AAA AA BBB BB B CCC D spread crédito bolsa juros prêmio de risco",html:`<p>A nota soberana é calculada por um score que combina crescimento em relação ao benchmark de 0,2% por trimestre, dívida/PIB acima de 60%, inflação acima de 5%, corrupção, tensão social acima de 30, confiança do mercado, saldo primário relativo ao PIB, confiança institucional, credibilidade e rumores; guerra gera penalidade explícita.</p><p>As faixas são: AAA a partir de 88; AA a partir de 76; A a partir de 64; BBB a partir de 56; BB a partir de 44; B a partir de 32; CCC a partir de 18; D abaixo de 18. Cada faixa atribui spread, que é diferente da taxa básica nominal. O sistema atualiza confiança de mercado em direção a um alvo macro com ruído limitado e calcula bolsa e preço do crédito a partir de fundamentos.</p><p>Um rating é um indicador sintético do jogo, não uma avaliação real de agência de crédito. A nota pode mudar quando os fundamentos mudam; não é diretamente controlada por um único slider.</p>`},
+{categoria:"Mercados",titulo:"Rating soberano, spread e confiança do mercado",tags:"rating AAA AA BBB BB B CCC D spread crédito bolsa juros prêmio de risco",html:`<p>A nota soberana é calculada por um score que combina crescimento em relação ao benchmark de 0,2% por trimestre, dívida/PIB acima de 60%, inflação acima de 5%, corrupção, tensão social acima de 30, confiança do mercado, saldo primário relativo ao PIB, confiança institucional, credibilidade e rumores; guerra gera penalidade explícita.</p><p>As faixas são: AAA a partir de 88; AA a partir de 76; A a partir de 64; BBB a partir de 56; BB a partir de 44; B a partir de 32; CCC a partir de 18; D abaixo de 18. Cada faixa atribui um spread (de 0,05 p.p. em AAA a 5 p.p. em D), e dívida/PIB acima de 70% soma um prêmio adicional de 0,012 p.p. por ponto (até 2 p.p.); o spread é diferente da taxa básica nominal. O sistema atualiza confiança de mercado em direção a um alvo macro com ruído limitado e calcula bolsa e preço do crédito a partir de fundamentos.</p><p>Um rating é um indicador sintético do jogo, não uma avaliação real de agência de crédito. A nota pode mudar quando os fundamentos mudam; não é diretamente controlada por um único slider.</p>`},
 {categoria:"Defesa",titulo:"Prontidão, moral, suprimentos e capacidade militar",tags:"defesa prontidão moral suprimentos indústria bélica ciberdefesa inteligência escudo antiaéreo conscrição alerta DEFCON",html:`<p>O painel de defesa reúne prontidão, moral, suprimentos, indústria bélica, ciberdefesa, inteligência, escudo antiaéreo, conscrição, economia de guerra, risco de golpe, ameaça nacional, baixas, dano de infraestrutura, refugiados, ocupação, custo/histórico de guerra, ultimatos, tréguas e tensões por país.</p><p>A prontidão reage ao orçamento de defesa, modificador partidário, conscrição, indústria bélica e estado de reforma da defesa, aproximando-se gradualmente de uma meta; ela não é um escudo absoluto. Moral e suprimentos também se ajustam gradualmente em paz. Conscrição aumenta efetivo, mas provoca custo social e penalidade de aprovação por trimestre; economia de guerra pressiona inflação e investimento.</p><p>O nível de alerta é um resumo da ameaça nacional. As decisões militares podem ter custos de Tesouro e recargas; custos obrigatórios durante guerra, como esforço de guerra e reparações, pertencem ao fluxo sistêmico. Não é preciso maximizar prontidão em paz para evitar conflito: o modelo foi recalibrado para reduzir a dependência de prontidão muito alta.</p>`},
 {categoria:"Defesa",titulo:"Incidentes híbridos: frequência, tipos e efeitos",tags:"incidente ataque híbrido ciber sabotagem espionagem desinformação naval escaramuça",html:`<p>Em paz, o motor pode gerar no máximo um incidente híbrido por trimestre. A chance por país é <code>clamp((tensão − 60)/320, 0, 0.025)</code>; portanto, tensão até 60 não gera incidente aleatório por si só, e a chance máxima individual em paz é 2,5% por trimestre. Durante guerra, acrescenta-se 0,12, com limite absoluto de 15% por alvo e um único incidente total por trimestre.</p><p>Os tipos possíveis incluem ciberataque, sabotagem, espionagem, desinformação, pressão naval, escaramuça de fronteira e provocação. A severidade/sucesso depende de ciberdefesa, inteligência, relações públicas, prontidão e perfil da ameaça. Um incidente pode ser repelido e produzir aprendizado ou ser bem-sucedido e gerar custo, danos, perda de confiança, pressão cambial, perda de moral ou tensão bilateral.</p><p>O histórico mostra as ocorrências recentes, não uma previsão de ataque garantido. Os eventos narrativos da aba Escritório são uma camada separada; o motor também reduz o peso dos eventos que pertencem à aba Defesa.</p>`},
-{categoria:"Defesa",titulo:"Probabilidade de conflito, ultimatos e guerra",tags:"guerra probabilidade conflito surpresa ultimato coalizão ocupação rendição",html:`<p>A probabilidade por país depende da tensão acima de 45, da prontidão baixa (com peso reduzido), do poder relativo e de eventuais dissuasores. A fórmula usa <code>expo = clamp((tensão − 45)/55, 0, 1)</code>; o risco individual é limitado a 12% por trimestre antes de aplicar tréguas e regras especiais. Prontidão inferior a 45 aumenta o risco, mas de forma moderada; alianças, tratados e pactos podem reduzi-lo.</p><p>Se um conflito for acionado, pode haver ultimato ou, em condições mais extremas, ataque surpresa. Recusar ultimato tem 20% de chance de guerra na verificação seguinte; aceitar/conceder tem 5%. O risco individual do conflito é limitado a 6% por trimestre antes de aplicar redutores de dissuasão. Ataques-surpresa exigem condições muito extremas ou um evento aleatório pequeno. Depois de uma guerra recente, existe um período de bloqueio para novos conflitos.</p><p>Durante a guerra, frentes evoluem conforme a razão de forças, tipo de frente, reforço e aleatoriedade. A razão considera prontidão, moral, suprimentos, indústria bélica, inteligência, ciberdefesa, escudo aéreo, conscrição, aliados, fadiga e ocupação, contra o poder do inimigo e coalizões. Guerra consome caixa, danifica infraestrutura e economia, causa baixas e pode terminar em vitória, derrota ou armistício. Ocupação de 55% encerra o governo.</p>`},
+{categoria:"Defesa",titulo:"Probabilidade de conflito, ultimatos e guerra",tags:"guerra probabilidade conflito surpresa ultimato coalizão ocupação rendição",html:`<p>A probabilidade por país depende da tensão acima de 45, da prontidão baixa (com peso reduzido), do poder relativo e de eventuais dissuasores. A fórmula usa <code>expo = clamp((tensão − 45)/55, 0, 1)</code>; o risco individual é limitado a 6% por trimestre, e uma trégua o zera. Prontidão inferior a 45 aumenta o risco, mas de forma moderada; alianças, tratados e pactos podem reduzi-lo.</p><p>O perfil partidário também interfere no subsistema: o índice-base de postura de guerra altera cada tensão inicial em <code>viésGuerra × 20</code> e soma <code>viésGuerra × 35</code> à hostilidade efetiva por país. Valores negativos reduzem pressão hostil; valores positivos elevam-na. O ajuste de hostilidade entra no valor que é suavizado para a tensão e, por isso, influencia o risco de forma indireta, não como pontos percentuais somados diretamente à probabilidade.</p><p>Se um conflito for acionado, pode haver ultimato ou, em condições mais extremas, ataque surpresa. Rejeitar o ultimato tem 20% de chance de guerra na verificação seguinte; adiar (mediação fracassada ou prazo negociado) tem 5%; ceder encerra o ultimato sem sorteio e concede trégua de 3 trimestres. Ataques-surpresa exigem condições muito extremas ou um evento aleatório pequeno. Depois de uma guerra recente, existe um período de bloqueio para novos conflitos.</p><p>Durante a guerra, frentes evoluem conforme a razão de forças, tipo de frente, reforço e aleatoriedade. A razão considera prontidão, moral, suprimentos, indústria bélica, inteligência, ciberdefesa, escudo aéreo, conscrição, aliados, fadiga e ocupação, contra o poder do inimigo e coalizões. Guerra consome caixa, danifica infraestrutura e economia, causa baixas e pode terminar em vitória, derrota ou armistício. Ocupação de 55% encerra o governo.</p>`},
 {categoria:"Relações públicas",titulo:"Impacto sistêmico de transparência, credibilidade, crises, imprensa e alcance",tags:"RP transparência credibilidade rumores imprensa alcance resposta crise fadiga comunicação aprovação rating crise eleição mitigação impacto real fórmula",html:`<p>Os indicadores de relações públicas não são apenas decorativos. Todos os cinco indicadores principais têm efeito direto no alvo trimestral de aprovação, além de canais secundários específicos. Referência neutra usada no score: <strong>50/100</strong> para cada um.</p><table class="enciclopedia-tabela"><thead><tr><th>Indicador</th><th>Termo no scorePopular</th><th>Outros efeitos</th></tr></thead><tbody><tr><td>Transparência</td><td><code>(transparência − 50) × 0,055</code></td><td>Afeta a evolução da credibilidade e a propagação de rumores; compõe a integridade eleitoral; melhora a resposta pública quando está alta.</td></tr><tr><td>Credibilidade</td><td><code>(credibilidade − 50) × 0,075</code></td><td>Influencia o rating soberano, a coerência do discurso, a resistência à desinformação e a credibilidade do bônus eleitoral.</td></tr><tr><td>Resposta a crises</td><td><code>(respostaCrise − 50) × 0,050</code></td><td>Reduz o crescimento dos rumores, diminui a severidade da desinformação e contribui para atenuar perdas reputacionais e sociais em eventos identificados como crises.</td></tr><tr><td>Imprensa</td><td><code>(imprensa − 50) × 0,040</code></td><td>Melhora a eficácia de coletivas e correções públicas, contribui para o controle de rumores, reforça a evolução da credibilidade e multiplica a eficácia da comunicação eleitoral.</td></tr><tr><td>Alcance</td><td><code>(alcance − 50) × 0,040</code></td><td>Afeta a difusão da escuta e das campanhas de comunicação, o comparecimento eleitoral e a capacidade de fazer chegar correções a vários grupos/regiões.</td></tr></tbody></table><p>O coeficiente de cada indicador atua em pontos brutos do <code>scorePopular</code>; o score é convertido no alvo de aprovação multiplicando-se por 0,72. Portanto, 10 pontos acima da referência em credibilidade elevam o alvo em 0,54 ponto, mantidos os demais dados; 10 pontos em transparência equivalem a 0,396 ponto no alvo. Não é uma mudança instantânea da aprovação observada, que converge gradualmente para o alvo.</p><p>Em eventos classificados como crises públicas — por formato ou pelo conteúdo do título/descrição — a combinação de resposta a crises, credibilidade, transparência, imprensa e alcance pode reduzir em até <strong>44%</strong> as perdas reputacionais e sociais mensuradas. Essa proteção não reverte danos físicos ou econômicos, não transforma uma escolha ruim em boa e não atenua consequências positivas. O valor efetivo depende dos cinco indicadores antes da escolha; a parcela mitigada é informada no resultado e registrada no Diário.</p><p>A dinâmica trimestral acrescenta outras ligações: transparência e confiança institucional ajudam a estabilizar a credibilidade; credibilidade e transparência favorecem uma relação funcional com a imprensa; resposta a crises e imprensa reduzem a pressão dos rumores; alcance cresce com aprovação e relação com a imprensa, mas a comunicação massiva também acumula fadiga. Rumores continuam prejudicando a credibilidade, o rating, o comparecimento e os bônus temporários.</p><p>As iniciativas também são sensíveis a essa capacidade. A Coletiva Técnica tem eficácia informacional dependente de transparência/imprensa e alcance; a Rodada de Escuta depende do alcance; a Central de Comunicação de Crise depende da capacidade de divulgar correções; e a Campanha Segmentada calcula o bônus conforme alcance, imprensa, credibilidade e fadiga. As fórmulas executáveis estão no código de cada iniciativa, e as mensagens informam a eficácia quando a ação é aplicada.</p>`},
 {categoria:"Eleições",titulo:"Desempenho do mandato, campanha e reeleição",tags:"eleição reeleição voto grupo comparecimento desempenho mandato campanha",html:`<p>No fim do ciclo, o jogo calcula aprovação estimada por grupos (elites 12%, trabalhadores 28%, jovens 17%, rural 18%, urbano 25%) e pondera o apoio pelos pesos. O cálculo eleitoral considera indicadores atuais e a diferença para a linha de base do mandato: PIB, saúde, educação, segurança, pobreza, desemprego, inflação, tensão social, confiança institucional, corrupção, dívida/PIB e desigualdade.</p><p>O comparecimento estimado depende da confiança institucional, rumores e mobilização. Atos de campanha realizados no período final do mandato preenchem dimensões de mobilização, comunicação, atuação territorial e prestação de contas. O resultado combina apoio ponderado, desempenho do mandato, integridade, estabilidade social, relações externas, bônus de campanha, fadiga de mandato e ruído final.</p><p>O painel de resultado mostra a decomposição quando disponível e separa a votação do governo e da oposição. Se o governo vence, o jogo oferece a continuidade do mandato, reinicia as métricas da campanha e captura uma nova linha de base. Os resultados eleitorais são sempre uma simulação interna, não uma previsão política do mundo real.</p>`},
 {categoria:"Eventos",titulo:"Sorteio de situações e decisões pendentes",tags:"eventos situações pendentes opções cooldown pesos escolha modal",html:`<p>Após a simulação do trimestre, eventos elegíveis são filtrados por condição e recarga. O sorteio escolhe de zero a dois eventos novos, limitado a duas decisões pendentes totais. Os pesos não podem ficar negativos; eventos de formatos narrativos especiais recebem ponderação própria, e eventos da aba Defesa recebem peso reduzido.</p><p>Uma situação inclui texto, opções, efeitos e recarga. Antes de executar cada opção, o motor testa os pagamentos diretos usando uma cópia do estado e aleatoriedade de sondagem determinística; a verificação restaura o gerador aleatório original. Se não houver caixa suficiente, a opção é desativada e não altera o estado. No clique, o motor revalida a opção para evitar descompasso entre interface e estado atual.</p><p>Se <strong>todas</strong> as opções forem bloqueadas exclusivamente por falta de caixa, o modal oferece “Adiar até o próximo trimestre”. O adiamento não cobra dinheiro, retira a decisão da lista pendente atual e a agenda para reapresentação automática no próximo trimestre, sem iniciar sua recarga. A aprovação perde até 0,5 ponto (sem ficar abaixo de zero). A opção só é permitida depois de nova validação confirmar que nenhuma alternativa se tornou financiável. Ao retornar, a situação tem prioridade sobre novos sorteios e volta a bloquear o avanço até ser resolvida ou adiada novamente.</p><p>Eventos pendentes bloqueiam avanço até serem resolvidos. Uma decisão pode afetar várias áreas ou agendar efeitos futuros. O Diário registra o evento, a escolha, o resultado, e avisos/erros do motor.</p>`},
@@ -7164,7 +7301,8 @@ const ENCYCLOPEDIA_ARTIGOS = [
 {categoria:"Opinião pública",titulo:"Fatores de mercado no alvo de aprovação",tags:"rating soberano BBB rating credito confiança investidor confiança mercado bolsa crescimento 1% benchmark aprovação PIB 1,4",html:`<p>Além dos indicadores econômicos e sociais, o <code>scorePopular</code> incorpora três fatores de mercado: o rating soberano com referência <strong>BBB</strong>, a confiança do investidor (campo <code>state.mercado.confianca</code>) com referência <strong>56/100</strong>, e a variação trimestral da bolsa com referência de <strong>+1,0%</strong>. A referência do crescimento real do PIB no score principal é <strong>+1,4% por trimestre</strong>.</p><p>O rating é transformado numa escala ordinal <code>D &lt; CCC &lt; B &lt; BB &lt; BBB &lt; A &lt; AA &lt; AAA</code>; cada degrau acima/abaixo de BBB adiciona/subtrai 1 ponto bruto. A confiança do investidor contribui em <code>(confiança − 56) × 0,12</code>. A bolsa contribui em <code>(crescimento trimestral da bolsa − 1,0) × 0,30</code>, onde o crescimento é <code>((índice atual / índice anterior) − 1) × 100</code>. Esses componentes entram no score, que é convertido em alvo de aprovação e não altera imediatamente, por si só, a aprovação observada.</p><p>O painel de mercados e o painel social exibem confiança empresarial e confiança do consumidor como indicadores separados. Confiança empresarial não é sinônimo de confiança do mercado/investidor.</p>`},
 {categoria:"Eventos e diplomacia",titulo:"Conselho das Nações Unidas: organismo multilateral, não país de eventos",tags:"ONU Conselho das Nações Unidas organismo multilateral estado soberano evento crise diplomacia MEDIAÇÃO",html:`<p>O Conselho das Nações Unidas continua disponível na matriz de relações multilaterais, porque a reputação junto ao organismo tem efeitos próprios, incluindo mediação, legitimidade e diplomacia. Ele não é um Estado soberano nem um adversário.</p><p>Os geradores de eventos internacionais e dilemas que instanciam um evento para cada país usam a lista <code>EVENT_COUNTRIES</code>, que exclui o identificador <code>onu</code>. O menu de alvo para iniciativas que exigem um governo soberano também exclui a ONU. Os eventos podem continuar mencionando uma mediação da ONU como ator institucional — isso não equivale a gerar uma crise em que a ONU seja tratada como país adversário.</p>`},
 {categoria:"Gabinete",titulo:"Demissão ministerial e confiança institucional",tags:"demitir ministro demissão confiança institucional escândalo corrupção penalidade menos oito pontos",html:`<p>Uma demissão discricionária iniciada pelo jogador, fora de uma situação de escândalo, reduz a confiança institucional em <strong>8 pontos</strong>, limitada ao piso zero. A demissão também mantém os efeitos existentes sobre aprovação e, quando o ministro tem lealdade alta, sobre Congresso e clima parlamentar. A notificação e o Diário registram a confiança antes/depois e a variação.</p><p>Na opção de um evento de escândalo que manda demitir e investigar o titular, não há penalidade adicional de 8 pontos: nesse contexto, a retirada é uma resposta pública a suspeitas de corrupção, e o efeito próprio do evento reduz a corrupção e altera a aprovação. A opção de manter e minimizar o caso tem seus efeitos negativos específicos. A distinção evita punir a mesma decisão como instabilidade e como resposta anticorrupção ao mesmo tempo.</p>`},
-{categoria:"Referência",titulo:"O que significa cada família de indicador",tags:"glossário unidade escala percentual índice estoque fluxo",html:`<table class="enciclopedia-tabela"><thead><tr><th>Família</th><th>Tipo/unidade</th><th>Leitura correta</th></tr></thead><tbody><tr><td>Aprovação, confiança, prontidão, moral, índices sociais</td><td>Índice 0–100</td><td>Escala sintética do jogo; não é percentual salvo quando o rótulo diz %.</td></tr><tr><td>Crescimento</td><td>% por trimestre</td><td>Variação do PIB durante o trimestre simulado.</td></tr><tr><td>Inflação / juros</td><td>% ao ano (a.a.) no painel</td><td>Taxas anualizadas; os cálculos internos podem converter a equivalentes trimestrais.</td></tr><tr><td>Dívida/PIB, dívida externa/PIB, conta corrente, investimento</td><td>% do PIB</td><td>Razão ou fluxo externo como identificado no rótulo.</td></tr><tr><td>Tesouro, PIB, dívida nominal, reservas</td><td>₭D bilhões</td><td>Montantes monetários nominais/estoques; não são índices sem unidade.</td></tr><tr><td>Assentos</td><td>número de cadeiras de um total de 300</td><td>Composição parlamentar.</td></tr><tr><td>Trimestre de recarga, prazo de empréstimo ou efeitos</td><td>trimestres</td><td>Contagem de transições futuras; não é unidade monetária.</td></tr></tbody></table><p>Os nomes internos citados nesta enciclopédia refletem a implementação do HTML fornecido. Em caso de diferença entre narrativa e mecânica executável, o comportamento do código é a referência; os avisos de decisão e o Diário devem explicitar custos e bloqueios relevantes.</p>`}
+{categoria:"Referência",titulo:"O que significa cada família de indicador",tags:"glossário unidade escala percentual índice estoque fluxo",html:`<table class="enciclopedia-tabela"><thead><tr><th>Família</th><th>Tipo/unidade</th><th>Leitura correta</th></tr></thead><tbody><tr><td>Aprovação, confiança, prontidão, moral, índices sociais</td><td>Índice 0–100</td><td>Escala sintética do jogo; não é percentual salvo quando o rótulo diz %.</td></tr><tr><td>Crescimento</td><td>% por trimestre</td><td>Variação do PIB durante o trimestre simulado.</td></tr><tr><td>Inflação / juros</td><td>% ao ano (a.a.) no painel</td><td>Taxas anualizadas; os cálculos internos podem converter a equivalentes trimestrais.</td></tr><tr><td>Dívida/PIB, dívida externa/PIB, conta corrente, investimento</td><td>% do PIB</td><td>Razão ou fluxo externo como identificado no rótulo.</td></tr><tr><td>Tesouro, PIB, dívida nominal, reservas</td><td>₭D bilhões</td><td>Montantes monetários nominais/estoques; não são índices sem unidade.</td></tr><tr><td>Assentos</td><td>número de cadeiras de um total de 300</td><td>Composição parlamentar.</td></tr><tr><td>Trimestre de recarga, prazo de empréstimo ou efeitos</td><td>trimestres</td><td>Contagem de transições futuras; não é unidade monetária.</td></tr></tbody></table><p>Os nomes internos citados nesta enciclopédia refletem a implementação do HTML fornecido. Em caso de diferença entre narrativa e mecânica executável, o comportamento do código é a referência; os avisos de decisão e o Diário devem explicitar custos e bloqueios relevantes.</p>`},
+{categoria:"Partidos e ideologia",titulo:"Eixo político, corrupção-base, postura de guerra e dificuldade",tags:"eixo esquerda direita escala ideologia partidos corrupção base sistêmica dificuldade estimada postura guerra indicadores base equilíbrio modificadores tributário gasto crescimento inflação social segurança aprovação grupo viés fiscal viés crescimento viés guerra",html:`<p>A seleção partidária usa um eixo ordinal explícito de <strong>0 a 100</strong>: 0–14 extrema-esquerda; 15–29 esquerda; 30–44 centro-esquerda; 45–56 centro; 57–71 centro-direita; 72–86 direita; 87–100 extrema-direita. O eixo resume a orientação econômico-institucional, mas não substitui a leitura de outras dimensões, como liberdades civis, ecologia, autonomia regional, política externa e postura militar. A versão atual tem 15 partidos à esquerda (categorias até centro-esquerda), 10 ao centro e 15 à direita (categorias a partir de centro-direita).</p><p><strong>Corrupção-base:</strong> <code>party.mods.corrupt</code> inicializa o indicador dinâmico <code>state.corrupcao</code> no início da partida. A variável sistêmica vai de 0 a 20; o valor de partida não é uma classificação moral de uma ideologia. O estado atual é o que alimenta as fórmulas: a receita usa o fator de evasão <code>1 - clamp(corrupcao/100, 0, 0.08)</code>; a corrupção também entra nos cálculos de aprovação popular, confiança dos mercados, rating e clima parlamentar. Eventos e políticas podem mudar a corrupção durante a partida, por isso o valor atual pode divergir do valor-base registrado.</p><p><strong>Postura de guerra:</strong> o campo estrutural <code>viésGuerra</code>, limitado nesta seleção a −0,22…+0,22, altera a tensão inicial de cada país em <code>viésGuerra × 20</code> e a hostilidade efetiva em <code>viésGuerra × 35</code>. Sinal negativo significa maior propensão à desescalada; positivo, uma postura mais dura. O efeito sobre probabilidade de conflito é indireto, pois hostilidade influencia a evolução da tensão, que entra no cálculo probabilístico. Relações, alianças, pactos, prontidão, moral, sanções e outros fatores continuam ativos.</p><p><strong>Indicadores-base apresentados por partido:</strong> todos os modificadores do objeto <code>mods</code> (tributação, gastos, crescimento, inflação, liberalismo social, segurança, alinhamento externo, corrupção e aprovação de elites, trabalhadores, jovens, população rural e urbana) e todos os campos de <code>PARTY_STRUCTURAL_PROFILES</code> (tag, arquitetura econômica, base social, extra, doutrina, Congresso, viés fiscal, viés de crescimento, alavanca parlamentar, disciplina de coalizão e viés de guerra). A interface também deriva dos mesmos dados os parâmetros iniciais de imposto, crescimento, inflação e orçamento.</p><p><strong>Dificuldade estimada:</strong> escala heurística de 1 a 10 calculada a partir de condições econômicas iniciais, corrupção-base, viés de guerra, viés fiscal, gasto-base, tributação e dispersão dos modificadores de aprovação por grupo. A estimativa é informativa e não é uma variável independente do motor que aplique penalidades adicionais. Os indicadores executáveis e suas fórmulas continuam sendo a referência final.</p>`},
 ];
 
 let enciclopediaCategoriaAtiva = "Todas";
@@ -7177,13 +7315,13 @@ function normalizarConsultaEnciclopedia(value) {
 }
 function montarArtigosDinamicosEnciclopedia() {
   const artigos = ENCYCLOPEDIA_ARTIGOS.slice();
-  const permitidas = new Set(["in_negociar_bancada","in_fisiologismo","in_sessao_extraordinaria"]);
-  INICIATIVAS.filter(i => i.tab !== "congresso" || permitidas.has(i.id)).forEach(i => {
+  INICIATIVAS.forEach(i => {
     const requisito = i.requisito ? (typeof i.requisito === "function" ? "Possui requisito dinâmico: consulte a mensagem do motor antes de executar." : String(i.requisito)) : "Sem requisito adicional declarado.";
     const custo = Math.max(0, Number(i.custoTesouro)||0);
     artigos.push({categoria:"Catálogo de iniciativas",titulo:i.nome,tags:`iniciativa ${i.id} ${i.desc} ${requisito}`,html:`<p>${escaparHtmlEnciclopedia(i.desc)}</p><ul><li><strong>Identificador técnico:</strong> <code>${escaparHtmlEnciclopedia(i.id)}</code></li><li><strong>Área:</strong> ${escaparHtmlEnciclopedia(i.tab)}</li><li><strong>Custo direto declarado:</strong> ${custo ? `₭D ${fmt(custo,1)} bilhões` : "₭D 0 (sem pagamento direto declarado)"}</li><li><strong>Recarga:</strong> ${Number(i.recarga)||0} trimestre(s)</li><li><strong>Alvo:</strong> ${i.precisaAlvo?"exigido":"não exigido"}</li><li><strong>Elegibilidade:</strong> ${escaparHtmlEnciclopedia(requisito)}</li></ul><p>O motor revalida os requisitos e o caixa quando o botão é acionado. Custo direto zero não exclui consequências fiscais indiretas descritas pelo efeito ou custos recorrentes da política.</p><details class="fonte-tecnica"><summary>Ver função de efeito executável</summary><pre><code>${escaparHtmlEnciclopedia(typeof i.efeito === "function" ? i.efeito.toString() : "Sem função de efeito registrada.")}</code></pre></details>`});
   });
   LEIS.forEach(l => artigos.push({categoria:"Catálogo de reformas",titulo:l.nome,tags:`lei reforma ${l.id} ${l.desc} voto clima custo`,html:`<p>${escaparHtmlEnciclopedia(l.desc)}</p><ul><li><strong>Identificador técnico:</strong> <code>${escaparHtmlEnciclopedia(l.id)}</code></li><li><strong>Custo inicial:</strong> ₭D ${fmt(l.custoTesouro,1)} bilhões</li><li><strong>Votos:</strong> pelo menos ${Math.round((l.threshold||0.51)*100)}% dos 300 assentos</li><li><strong>Clima mínimo:</strong> ${Number(l.climaMin)||0}/100</li><li><strong>Efeito:</strong> aplicado só depois de haver votos projetados suficientes, caixa e aprovação; pode alterar indicadores imediatamente ou agendar efeitos futuros.</li></ul><details class="fonte-tecnica"><summary>Ver função de efeito executável</summary><pre><code>${escaparHtmlEnciclopedia(typeof l.efeito === "function" ? l.efeito.toString() : "Sem função de efeito registrada.")}</code></pre></details>`}));
+  PARTIES.forEach(p => artigos.push({categoria:"Perfis de partido",titulo:`${p.sigla} — ${p.nome}`,tags:`partido ${p.sigla} ${p.nome} ${p.tagsPesquisa||""} ${espectroPartido(p)} eixo ${p.eixoEsquerdaDireita} corrupção guerra dificuldade`,html:`<p>${escaparHtmlEnciclopedia(p.desc)}</p><p><strong>Posição no eixo:</strong> ${Number(p.eixoEsquerdaDireita)}/100 — ${escaparHtmlEnciclopedia(espectroPartido(p))}.</p>${renderIndicadoresBasePartido(p)}<p class="fonte-interna">Origem técnica: registro ${escaparHtmlEnciclopedia(p.sigla)} em <code>PARTIES</code> e perfil de mesmo ID em <code>PARTY_STRUCTURAL_PROFILES</code>. O texto e os valores deste verbete são gerados em tempo de execução a partir dos dados usados pela seleção de partido.</p>`}));
   return artigos;
 }
 function atualizarResultadosEnciclopedia() {
@@ -7211,7 +7349,7 @@ function renderEnciclopedia() {
   const categorias = ["Todas", ...Array.from(new Set(artigos.map(a=>a.categoria)))];
   if (!categorias.includes(enciclopediaCategoriaAtiva)) enciclopediaCategoriaAtiva="Todas";
 
-  el.innerHTML = `<div class="enciclopedia-cabecalho"><h2>Enciclopédia técnica de Darmondia</h2><p>Referência pesquisável dos sistemas, regras, variáveis, requisitos, fórmulas, consequências e limites implementados no simulador. Os artigos gerais descrevem o motor; os catálogos são gerados dos registros de iniciativas e reformas que estão ativos no jogo.</p><div class="enciclopedia-busca-row"><input type="search" id="busca-enciclopedia" class="campo-busca enciclopedia-busca" placeholder="Pesquisar mecânica, indicador, fórmula ou iniciativa…" value="${escaparHtmlEnciclopedia(enciclopediaBuscaTexto)}" aria-label="Pesquisar enciclopédia" autocomplete="off" spellcheck="false"><select id="categoria-enciclopedia" class="campo-busca" aria-label="Filtrar categoria">${categorias.map(c=>`<option value="${escaparHtmlEnciclopedia(c)}" ${enciclopediaCategoriaAtiva===c?"selected":""}>${escaparHtmlEnciclopedia(c)}</option>`).join("")}</select></div><div class="enciclopedia-categorias">${categorias.map(c=>`<button type="button" data-enc-cat="${escaparHtmlEnciclopedia(c)}" class="${enciclopediaCategoriaAtiva===c?"ativo":""}">${escaparHtmlEnciclopedia(c)}</button>`).join("")}</div></div><div id="enciclopedia-resultados" aria-live="polite"></div>`;
+  el.innerHTML = `<div class="enciclopedia-cabecalho"><h2>Enciclopédia técnica de Darmondia</h2><p>Referência pesquisável dos sistemas, regras, variáveis, requisitos, fórmulas, consequências e limites implementados no simulador. Os artigos gerais descrevem o motor; iniciativas, reformas e os 40 perfis partidários são gerados dos registros usados pelo jogo para reduzir divergências entre documentação e execução.</p><div class="enciclopedia-busca-row"><input type="search" id="busca-enciclopedia" class="campo-busca enciclopedia-busca" placeholder="Pesquisar mecânica, indicador, fórmula ou iniciativa…" value="${escaparHtmlEnciclopedia(enciclopediaBuscaTexto)}" aria-label="Pesquisar enciclopédia" autocomplete="off" spellcheck="false"><select id="categoria-enciclopedia" class="campo-busca" aria-label="Filtrar categoria">${categorias.map(c=>`<option value="${escaparHtmlEnciclopedia(c)}" ${enciclopediaCategoriaAtiva===c?"selected":""}>${escaparHtmlEnciclopedia(c)}</option>`).join("")}</select></div><div class="enciclopedia-categorias">${categorias.map(c=>`<button type="button" data-enc-cat="${escaparHtmlEnciclopedia(c)}" class="${enciclopediaCategoriaAtiva===c?"ativo":""}">${escaparHtmlEnciclopedia(c)}</button>`).join("")}</div></div><div id="enciclopedia-resultados" aria-live="polite"></div>`;
 
   const inputBusca = el.querySelector("#busca-enciclopedia");
   inputBusca?.addEventListener("input", e => {
@@ -7352,7 +7490,7 @@ function renderEscritorio() {
   el.innerHTML = `
     <div class="grade-cards">
       <div class="card"><h3>Aprovação Popular</h3><div class="valor-grande">${fmt(state.aprovacao, 0)}<small>/100</small></div>${medidorHtml(state.aprovacao, 55, 35)}</div>
-      <div class="card"><h3>PIB (Darmondia)</h3><div class="valor-grande">${fmtMoeda(state.pib)}</div><div class="variacao ${state.crescimento >= 0 ? "pos" : "neg"}">${state.crescimento >= 0 ? "▲" : "▼"} ${fmt(Math.abs(state.crescimento), 1)}% no trimestre</div></div>
+      <div class="card"><h3>PIB (Darmondia)</h3><div class="valor-grande">${fmtMoeda(state.pib)}</div><div class="variacao ${state.crescimento >= 0 ? "pos" : "neg"}">${state.crescimento >= 0 ? "▲" : "▼"} ${fmt(Math.abs(state.crescimento), 1)}% real no trimestre</div></div>
       <div class="card"><h3>Confiança Institucional</h3><div class="valor-grande">${fmt(state.confiancaInstitucional, 0)}<small>/100</small></div>${medidorHtml(state.confiancaInstitucional, 60, 35)}</div>
       <div class="card"><h3>Risco de Impeachment</h3><div class="valor-grande">${fmt(state.riscoImpeachment, 0)}<small>/100</small></div>${medidorHtml(100 - state.riscoImpeachment, 60, 35)}</div>
       <div class="card"><h3>Próxima Eleição</h3><div class="valor-grande">${trimestresRestantes}<small>trimestres</small></div><div class="variacao">${state.mandato}º mandato em curso</div></div>
@@ -7365,7 +7503,7 @@ function renderEscritorio() {
       <p style="font-size:13px;color:var(--text-dim);line-height:1.6">
         Darmondia é governada pelo <b class="partido-destaque">${party.nome} (${party.sigla})</b> — ${party.linha.toLowerCase()}.
         ${party.desc}
-        <br><br><b>Arquitetura estrutural:</b> ${party.perfil.economia}. <b>Base social:</b> ${party.perfil.baseSocial}. <b>Congresso:</b> ${party.perfil.congresso}. <b>Guerra:</b> índice ${fmt(party.perfil.viésGuerra,2)}.
+        <br><br><b>Eixo político:</b> ${party.eixoEsquerdaDireita}/100 — ${espectroPartido(party)}. <b>Arquitetura estrutural:</b> ${party.perfil.economia}. <b>Base social:</b> ${party.perfil.baseSocial}. <b>Congresso:</b> ${party.perfil.congresso}.<br><b>Corrupção de partida:</b> ${fmt(state.corrupcaoBase,1)}/20 (o nível atual é ${fmt(state.corrupcao,1)}/20). Afeta receita arrecadada, aprovação, confiança de mercado, rating e clima parlamentar. <b>Postura de guerra-base:</b> ${formatarSinal(state.indiceGuerraBase)}; altera a tensão inicial e a hostilidade efetiva ao longo da partida. <b>Dificuldade estimada:</b> ${fmt(dificuldadePartido(party),1)}/10 — ${faixaDificuldadePartido(dificuldadePartido(party))}.
       </p>
     </div>
   `;
@@ -7475,7 +7613,7 @@ function simularFechamentoFiscal(cenario, horizonte = 4) {
     });
 
     const crescimento = Number(cenario.crescimento) || 0;
-    pib *= 1 + crescimento / 100;
+    pib *= (1 + crescimento / 100) * Math.pow(1 + Math.max(-1, Number(cenario.inflacao)||0) / 100, 0.25);
     const dividaPIB = divida / Math.max(1, pib) * 100;
     const dividaExternaPIB = dividaExterna / Math.max(1, pib) * 100;
     const delta = dividaPIB - (i === 1 ? cenario.dividaPIB : pontos[i-2].dividaPIB);
@@ -7579,7 +7717,7 @@ function renderFinancas() {
       <div class="card"><h3>Câmbio (₭D/referência)</h3><div class="valor-grande">${fmt(state.cambio, 2)}</div></div>
       <div class="card"><h3>Reservas Cambiais</h3><div class="valor-grande">${fmtMoeda(state.reservas)}</div></div>
       <div class="card"><h3>Tesouro Nacional</h3><div class="valor-grande">${fmtMoeda(state.tesouro)}</div></div>
-      <div class="card"><h3>Saldo Primário</h3><div class="valor-grande" style="color:${state.saldoPrimario >= 0 ? "var(--success)" : "var(--danger)"}">${state.saldoPrimario >= 0 ? "+" : ""}${fmtMoeda(state.saldoPrimario)}<small>/tri.</small></div></div>
+      <div class="card"><h3>Saldo Primário</h3><div class="valor-grande" style="color:${Math.abs(state.saldoPrimario) < 0.05 ? "var(--text)" : state.saldoPrimario > 0 ? "var(--success)" : "var(--danger)"}">${state.saldoPrimario >= 0.05 ? "+" : ""}${fmtMoeda(Math.abs(state.saldoPrimario) < 0.05 ? 0 : state.saldoPrimario)}<small>/tri.</small></div></div>
       <div class="card"><h3>Conta Corrente</h3><div class="valor-grande">${state.contaCorrente >= 0 ? "+" : ""}${fmt(state.contaCorrente,1)}<small>% PIB</small></div><div class="variacao">Fluxo; não altera dívida externa bruta diretamente</div></div>
       <div class="card"><h3>Dívida Externa Bruta</h3><div class="valor-grande">${fmt(state.dividaExternaPIB,1)}<small>% PIB</small></div><div class="variacao">Estoque: ${fmtMoeda(state.dividaExternaEstoque)}</div></div>
       <div class="card"><h3>Investimento</h3><div class="valor-grande">${fmt(state.investimento,1)}<small>% PIB</small></div></div>
@@ -8007,9 +8145,8 @@ function renderApoio() {
 }
 
 /* -------------------------------------------------- CARTÕES DE INICIATIVA (compartilhado entre abas) -------------------------------------------------- */
-const INICIATIVAS_NEGOCIACAO_CONGRESSO = new Set(["in_negociar_bancada", "in_fisiologismo", "in_sessao_extraordinaria"]);
 function renderCartoesIniciativa(tab) {
-  const disponiveis = INICIATIVAS.filter(i => i.tab === tab && (tab !== "congresso" || INICIATIVAS_NEGOCIACAO_CONGRESSO.has(i.id)));
+  const disponiveis = INICIATIVAS.filter(i => i.tab === tab);
   return disponiveis.map((ini) => {
     const cd = state.cooldowns["ini_" + ini.id] || 0;
     const custo = Math.max(0, Number(ini.custoTesouro) || 0);
@@ -8199,13 +8336,13 @@ function renderMercados() {
       <div class="card"><h3>Bolsa de Darmondia</h3><div class="valor-grande">${fmt(m.bolsa, 0)}</div><div class="variacao ${variacaoBolsa >= 0 ? "pos" : "neg"}">${variacaoBolsa >= 0 ? "▲" : "▼"} ${fmt(Math.abs(variacaoBolsa), 1)}% no trimestre</div></div>
       <div class="card"><h3>Confiança do Investidor</h3><div class="valor-grande">${fmt(m.confianca, 0)}<small>/100</small></div>${medidorHtml(m.confianca, 55, 35)}</div>
       <div class="card"><h3>Rating de Crédito Soberano</h3><div class="badge-rating ${classeRating(m.rating)}">${m.rating}</div></div>
-      <div class="card"><h3>Spread de Risco-País</h3><div class="valor-grande">+${fmt(m.spread, 1)}<small>p.p.</small></div></div>
+      <div class="card"><h3>Spread de Risco-País</h3><div class="valor-grande">+${fmt(m.spread, 2)}<small>p.p.</small></div></div>
       <div class="card"><h3>Taxa Básica de Juros</h3><div class="valor-grande">${fmt(m.taxaBasica, 1)}<small>% a.a.</small></div></div>
       <div class="card"><h3>Taxa Efetiva (básica + spread)</h3><div class="valor-grande">${fmt(state.taxaJuros, 1)}<small>% a.a.</small></div></div>
     </div>
     <div class="card" style="margin-bottom:18px">
       <p style="font-size:12.5px;color:var(--text-dim);line-height:1.6">
-        O rating de crédito combina dívida/PIB, crescimento trimestral, inflação, saldo fiscal, confiança e estabilidade social. O benchmark é BB com +0,2% de crescimento por trimestre e spread de +0,3 p.p. Quanto pior o rating, maior o <b style="color:var(--text)">spread de risco-país</b> — que se soma à taxa básica e encarece diretamente os encargos financeiros da dívida pública no próximo trimestre. É um ciclo real: descontrole fiscal hoje vira juros mais altos amanhã.
+        O rating de crédito combina dívida/PIB, crescimento trimestral, inflação, saldo fiscal, confiança e estabilidade social. O benchmark é BB com +0,2% de crescimento por trimestre e spread de +0,8 p.p. Quanto pior o rating, maior o <b style="color:var(--text)">spread de risco-país</b> — que se soma à taxa básica e encarece diretamente os encargos financeiros da dívida pública no próximo trimestre. É um ciclo real: descontrole fiscal hoje vira juros mais altos amanhã.
       </p>
     </div>
     <div class="secao-titulo"><h2>Iniciativas de Mercado</h2><span class="sub">Custam Tesouro ou dependem das condições políticas, com recarga em trimestres</span></div>
@@ -8259,7 +8396,7 @@ function renderDefesa() {
   }
   const lista = ADVERSARIOS.slice().sort((a, b) => d.tensao[b] - d.tensao[a]);
   const cards = lista.map((cid) => {
-    const p = PERFIS_AMEACA[cid], t = d.tensao[cid], pr = probabilidadeConflito(state, cid), h = hostilidadeEfetiva(state, cid, null);
+    const p = PERFIS_AMEACA[cid], t = d.tensao[cid], pr = probabilidadeConflito(state, cid), h = hostilidadeEfetiva(state, cid, partidoAtual());
     const tr = (d.tregua[cid] || 0) > state.q_total;
     const cor = t > 75 ? "var(--danger)" : t > 55 ? "var(--warn, #d9a441)" : "var(--text-faint)";
     return `<div class="card card-fronteira">
@@ -8269,11 +8406,12 @@ function renderDefesa() {
       ${medidorHtml(100 - t, 55, 30)}
     </div>`;
   }).join("");
-  const inc = (d.incidentes || []).slice(-6).reverse().map((i) => `<li>${i.texto || JSON.stringify(i)}</li>`).join("") || "<li>Nenhum incidente recente.</li>";
+  const inc = (d.incidentes || []).slice(0, 6).map((i) => `<li>${i.texto || JSON.stringify(i)}</li>`).join("") || "<li>Nenhum incidente recente.</li>";
   el.innerHTML = `
     ${painelGuerra}
     <div class="grade-cards">
       <div class="card"><h3>Nível de Alerta</h3><div class="valor-grande" style="font-size:15px;color:${corAlerta(d.nivelAlerta)}">${rotuloAlerta(d.nivelAlerta)}</div><div class="variacao">Índice de ameaça nacional: ${fmt(d.ameacaNacional, 0)}/100</div></div>
+      <div class="card"><h3>Índice-base de postura de guerra</h3><div class="valor-grande">${formatarSinal(state.indiceGuerraBase)}<small>−0,22 a +0,22</small></div><div class="variacao">Afeta a tensão inicial (×20) e a hostilidade efetiva por país (×35); valor negativo favorece desescalada e positivo aumenta pressão hostil.</div></div>
       <div class="card"><h3>Prontidão Militar</h3><div class="valor-grande">${fmt(d.prontidao, 0)}<small>/100</small></div>${medidorHtml(d.prontidao, 60, 30)}</div>
       <div class="card"><h3>Moral das Tropas</h3><div class="valor-grande">${fmt(d.moral, 0)}<small>/100</small></div>${medidorHtml(d.moral, 55, 30)}</div>
       <div class="card"><h3>Suprimentos</h3><div class="valor-grande">${fmt(d.suprimentos, 0)}<small>/100</small></div>${medidorHtml(d.suprimentos, 50, 25)}</div>
@@ -8387,8 +8525,8 @@ function handleAvancarTrimestre() {
   const r = avancarTrimestre();
   if (!r.ok) { mostrarToast(r.msg, true); return; }
   renderTudo();
-  if (!state.jogoAtivo) { mostrarFimDeJogo(); return; }
   if (r.eleicao) { mostrarResultadoEleicao(r.eleicao); return; }
+  if (!state.jogoAtivo) { mostrarFimDeJogo(); return; }
   if (state.ultimoAvisoMinisterial && state.ultimoAvisoMinisterial.turno === state.q_total) {
     mostrarNotificacaoModal(state.ultimoAvisoMinisterial.titulo, state.ultimoAvisoMinisterial.mensagem, true);
   } else {
@@ -8479,7 +8617,8 @@ let toastTimeout = null;
 function mostrarToast(msg, erro) {
   const el = document.getElementById("toast");
   el.textContent = msg;
-  el.className = "toast-msg mostrar" + (erro ? " erro" : "");
+  const overlayAberto = Array.from(document.querySelectorAll(".overlay")).some((o) => getComputedStyle(o).display !== "none");
+  el.className = "toast-msg mostrar" + (erro ? " erro" : "") + (overlayAberto ? " toast-topo" : "");
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => { el.classList.remove("mostrar"); }, 3600);
 }
